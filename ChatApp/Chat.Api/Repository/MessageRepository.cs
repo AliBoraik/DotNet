@@ -23,6 +23,8 @@ public class MessageRepository : IMessageRepository
     public async Task Create(Message item)
     {
         await _db.Messages.AddAsync(item);
+
+        await _db.SaveChangesAsync();
     }
     public async Task Delete(int id)
     {

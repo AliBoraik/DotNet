@@ -3,6 +3,7 @@ using Chat.Api.Hubs;
 using Chat.Api.Repository;
 using Chat.Api.Services;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +36,12 @@ builder.Services.AddMassTransit(x =>
     });
 });
 builder.Services.AddSingleton<MessageHub>();
-// TODO database
-//builder.Services.AddScoped<IMessageRepository,MessageRepository>();
+
+builder.Services.AddDbContext<MessageDataContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MessageDb"));
+});
+builder.Services.AddScoped<IMessageRepository,MessageRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

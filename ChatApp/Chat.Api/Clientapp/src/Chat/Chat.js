@@ -26,6 +26,18 @@ const Chat = () => {
                 
                     setChat(updatedChat);
                 });
+                fetch('https://localhost:7043/api/message/get_history', {
+                    method: 'GET'
+                })
+                    .then((response) =>
+                    {return response.json()}).then((data) => 
+                {
+                    let messages = []
+                    data.forEach(message => {
+                        messages.push({user: message.user, message: message.messageText})
+                    })
+                    setChat(messages)
+                })
             })
             .catch(e => console.log('Connection failed: ', e));
     }, []);
@@ -53,7 +65,7 @@ const Chat = () => {
     return (
         <div>
             <ChatInput sendMessage={sendMessage} />
-            <hr />
+            <hr/>
             <ChatWindow chat={chat}/>
         </div>
     );

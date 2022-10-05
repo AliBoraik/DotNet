@@ -5,6 +5,10 @@ namespace Chat.Api.Database;
 
 public class MessageDataContext : DbContext
 {
+    public MessageDataContext()
+    {
+        
+    }
     public MessageDataContext(DbContextOptions options) : base(options)
    {
    }
