@@ -12,7 +12,7 @@ const Chat = () => {
 
     useEffect(() => {
         const connection = new HubConnectionBuilder()
-            .withUrl('http://0.0.0.0:7043/message', {
+            .withUrl('http://localhost:7043/message', {
                 withCredentials: false,
                 skipNegotiation: true,
                 transport: HttpTransportType.WebSockets
