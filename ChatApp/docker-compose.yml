@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  chat.api:
+    build: .
+    ports:
+        - '7043:80'  
+    networks: 
+      - chatapp
+
+  react:
+    build: ./Chat.Api/Clientapp
+    ports: 
+      - '3000:3000'
+    networks: 
+      - chatapp
+
+networks:
+  chatapp:
+    external: true
