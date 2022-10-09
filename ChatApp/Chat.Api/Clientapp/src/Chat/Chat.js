@@ -13,7 +13,7 @@ const Chat = () => {
     useEffect(() => {
         let connection;
         connection = new HubConnectionBuilder()
-            .withUrl('https://localhost:7043/message')
+            .withUrl('http://localhost:7043/message')
             .withAutomaticReconnect()
             .build();
 
@@ -27,7 +27,7 @@ const Chat = () => {
                 
                     setChat(updatedChat);
                 });
-                fetch('https://localhost:7043/api/message/get_history', {
+                fetch('http://localhost:7043/api/message/get_history', {
                     method: 'GET'
                 })
                     .then((response) =>
@@ -50,7 +50,7 @@ const Chat = () => {
         };
 
         try {
-            await  fetch('https://localhost:7043/api/message', { 
+            await  fetch('http://localhost:7043/api/message', { 
                 method: 'POST', 
                 body: JSON.stringify(chatMessage),
                 headers: {

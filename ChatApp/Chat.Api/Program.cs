@@ -11,11 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// TODO database
-/*builder.Services.AddEntityFrameworkNpgsql().AddDbContext<MessageDataContext>(options => options.UseNpgsql(
-        builder.Configuration.GetConnectionString("MessageDb")
-    )
-);*/
 builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
@@ -39,7 +34,8 @@ builder.Services.AddSingleton<MessageHub>();
 
 builder.Services.AddDbContext<MessageDataContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("MessageDb"));
+    var dockerEnv = Environment.GetEnvironmentVariable("CONNECTION_STRING_DOCKER");
+    options.UseNpgsql(dockerEnv ?? builder.Configuration.GetConnectionString("MessageDb"));
 });
 builder.Services.AddScoped<IMessageRepository,MessageRepository>();
 
@@ -56,12 +52,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection(); 
+//app.UseHttpsRedirection(); 
 app.UseCors("ClientPermission");
 
 app.UseAuthorization();
 
 app.MapHub<MessageHub>("/message");
 app.MapControllers();
+var services = app.Services.CreateScope().ServiceProvider;
+services.GetRequiredService<MessageDataContext>().Database.Migrate();
 
 app.Run();

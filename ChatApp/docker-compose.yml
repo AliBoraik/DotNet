@@ -4,7 +4,9 @@ services:
   chat.api:
     build: .
     ports:
-        - '7043:80'  
+        - '7043:80' 
+    environment:
+      CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=asas1212"    
     networks: 
       - chatapp
 
@@ -14,7 +16,19 @@ services:
       - '3000:3000'
     networks: 
       - chatapp
-
+  db:
+    image: postgres:latest
+    ports:
+      - '5432:5433'
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "asas1212"
+      POSTGRES_DB: "messagedb"  
+    networks:
+      - chatapp
 networks:
   chatapp:
-    external: true
+    driver: bridge
+     
