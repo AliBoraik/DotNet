@@ -8,16 +8,22 @@
 
     <ItemGroup>
         <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.7-develop.600" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Chat.Application\Chat.Application.csproj" />
+      <ProjectReference Include="..\Chat.Domain\Chat.Domain.csproj" />
+      <ProjectReference Include="..\Chat.Infrastructure\Chat.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

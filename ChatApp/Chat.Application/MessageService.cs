@@ -1,16 +1,15 @@
-﻿using System.Collections.Immutable;
-using Chat.Api.Database;
-using Chat.Api.Models;
-using Chat.Api.Models.Entity;
+﻿using Chat.Domain.Entities;
+using Chat.Infrastructure;
+using Chat.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chat.Api.Repository;
+namespace Chat.Application;
 
-public class MessageRepository : IMessageRepository
+public class MessageService: IMessageService
 {
     private readonly MessageDataContext _db;
 
-    public MessageRepository(MessageDataContext db)
+    public MessageService(MessageDataContext db)
     {
         _db = db;
     }

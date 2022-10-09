@@ -1,4 +1,5 @@
 using Chat.Api.Models;
+using Chat.Domain.Entities;
 
 namespace Chat.Api.Hubs.Clients
 {
