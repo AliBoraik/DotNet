@@ -9,6 +9,8 @@ services:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
     networks:
       - chatapp
+    depends_on:
+      - rabbitmq
 
   react:
     build: ./Chat.Api/Clientapp
@@ -16,6 +18,7 @@ services:
       - '3000:3000'
     networks:
       - chatapp
+  
   db:
     image: postgres:latest
     ports:
@@ -26,6 +29,15 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "admin"
       POSTGRES_DB: "messagedb"
+    networks:
+      - chatapp
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - chatapp
 networks:

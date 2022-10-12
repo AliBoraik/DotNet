@@ -1,4 +1,5 @@
 using Chat.Api.Hubs;
+using Chat.Api.Producer;
 using Chat.Application;
 using Chat.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<MessageHub>();
+builder.Services.AddScoped<IRabbitMqProducer, RabbitMqProducer>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
@@ -47,9 +49,6 @@ app.UseAuthorization();
 
 app.MapHub<MessageHub>("/message");
 app.MapControllers();
-var services = app.Services.CreateScope().ServiceProvider;
-services.GetRequiredService<MessageDataContext>().Database.Migrate();
-
 var services = app.Services.CreateScope().ServiceProvider;
 services.GetRequiredService<MessageDataContext>().Database.Migrate();
 
