@@ -1,9 +1,8 @@
-using Chat.Api.Database;
 using Chat.Api.Hubs;
-using Chat.Api.Repository;
-using Chat.Api.Services;
-using MassTransit;
+using Chat.Application;
+using Chat.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddSignalR();
+builder.Services.AddSingleton<MessageHub>();
+
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ClientPermission", policy =>
@@ -22,22 +26,6 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-builder.Services.AddMassTransit(x =>
-{
-    x.AddConsumer<MessageCreatedConsumer>();
-    x.UsingInMemory((context, cfg) =>
-    {
-        cfg.ConfigureEndpoints(context);
-    });
-});
-builder.Services.AddSingleton<MessageHub>();
-
-builder.Services.AddDbContext<MessageDataContext>(options =>
-{
-    var dockerEnv = Environment.GetEnvironmentVariable("CONNECTION_STRING_DOCKER");
-    options.UseNpgsql(dockerEnv ?? builder.Configuration.GetConnectionString("MessageDb"));
-});
-builder.Services.AddScoped<IMessageRepository,MessageRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -59,6 +47,9 @@ app.UseAuthorization();
 
 app.MapHub<MessageHub>("/message");
 app.MapControllers();
+var services = app.Services.CreateScope().ServiceProvider;
+services.GetRequiredService<MessageDataContext>().Database.Migrate();
+
 var services = app.Services.CreateScope().ServiceProvider;
 services.GetRequiredService<MessageDataContext>().Database.Migrate();
 

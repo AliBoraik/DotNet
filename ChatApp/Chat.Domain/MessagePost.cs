@@ -1,4 +1,4 @@
-﻿namespace Chat.Api.Models
+﻿namespace Chat.Domain.Entities
 {
     public class MessagePost
     {
