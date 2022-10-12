@@ -4,17 +4,30 @@ services:
   chat.api:
     build: .
     ports:
-        - '7043:80'  
-    networks: 
+      - '7043:80'
+    environment:
+      CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
+    networks:
       - chatapp
 
   react:
     build: ./Chat.Api/Clientapp
-    ports: 
+    ports:
       - '3000:3000'
-    networks: 
+    networks:
       - chatapp
-
+  db:
+    image: postgres:latest
+    ports:
+      - '5432:5433'
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "messagedb"
+    networks:
+      - chatapp
 networks:
   chatapp:
-    external: true
+    driver: bridge

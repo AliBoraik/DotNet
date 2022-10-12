@@ -10,8 +10,11 @@ public static class ConfigureServices
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<MessageDataContext>(options => 
-            options.UseNpgsql(configuration["MessageDbConnection"]));
+        services.AddDbContext<MessageDataContext>(options =>
+        {
+            var dockerEnv = Environment.GetEnvironmentVariable("CONNECTION_STRING_DOCKER");
+            options.UseNpgsql(dockerEnv ?? configuration.GetConnectionString("MessageDb"));
+        });
 
         return services;
     }
