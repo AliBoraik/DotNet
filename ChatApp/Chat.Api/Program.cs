@@ -40,13 +40,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection(); 
+//app.UseHttpsRedirection(); 
 app.UseCors("ClientPermission");
 
 app.UseAuthorization();
 
 app.MapHub<MessageHub>("/message");
 app.MapControllers();
+var services = app.Services.CreateScope().ServiceProvider;
+services.GetRequiredService<MessageDataContext>().Database.Migrate();
 
 var services = app.Services.CreateScope().ServiceProvider;
 services.GetRequiredService<MessageDataContext>().Database.Migrate();
