@@ -1,6 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using Chat.BackgroundService;
+using Chat.Infrastructure;
 
-app.MapGet("/", () => "Hello World!");
+var config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
 
-app.Run();
+var host = Host
+    .CreateDefaultBuilder(args)
+    .ConfigureServices((_, services) =>
+    {
+        services.AddInfrastructure(config);
+        services.AddHostedService<Consumer>();
+    })
+    .Build();
+
+await host.RunAsync();

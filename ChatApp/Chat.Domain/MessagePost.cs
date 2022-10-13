@@ -1,4 +1,4 @@
-﻿namespace Chat.Domain.Entities
+﻿namespace Chat.Domain
 {
     public class MessagePost
     {
