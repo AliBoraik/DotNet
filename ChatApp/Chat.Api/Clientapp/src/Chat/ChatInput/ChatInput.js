@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../Chat_Style.css'
 
 const ChatInput = (props) => {
     const [user, setUser] = useState('');
@@ -27,28 +28,23 @@ const ChatInput = (props) => {
     }
 
     return (
-        <form 
+        <form className="msger-inputarea"
             onSubmit={onSubmit}>
-            <label htmlFor="user">User:</label>
-            <br />
             <input 
                 id="user" 
                 name="user" 
                 value={user}
-                onChange={onUserUpdate} />
-            <br/>
-            <label htmlFor="message">Message:</label>
-            <br />
+                onChange={onUserUpdate}  type="text" className="msger-input" placeholder="Enter your name..." />
             <input 
                 type="text"
                 id="message"
                 name="message" 
                 value={message}
-                onChange={onMessageUpdate} />
-            <br/><br/>
-            <button>Submit</button>
+                onChange={onMessageUpdate} type="text" className="msger-input" placeholder="Enter your message..." />
+            <button type="submit" className="msger-send-btn">Send</button>
         </form>
     )
 };
+
 
 export default ChatInput;

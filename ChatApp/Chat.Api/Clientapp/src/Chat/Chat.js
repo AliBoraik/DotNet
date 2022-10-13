@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
+import './Chat_Style.css'
 
 import ChatWindow from './ChatWindow/ChatWindow';
 import ChatInput from './ChatInput/ChatInput';
@@ -65,11 +66,18 @@ const Chat = () => {
     }
 
     return (
-        <div>
-            <ChatInput sendMessage={sendMessage} />
-            <hr/>
+        <section className="msger">
+            <header className="msger-header">
+                <div className="msger-header-title">
+                    <i className="fas fa-comment-alt"></i> Chat App
+                </div>
+            </header>
             <ChatWindow chat={chat}/>
-        </div>
+            <div>
+                <ChatInput sendMessage={sendMessage} />
+                <hr/>
+            </div>
+        </section>
     );
 };
 
