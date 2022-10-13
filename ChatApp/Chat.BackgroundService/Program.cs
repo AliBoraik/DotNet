@@ -1,3 +1,4 @@
+using Chat.Application;
 using Chat.BackgroundService;
 using Chat.Infrastructure;
 
@@ -10,6 +11,7 @@ var host = Host
     .ConfigureServices((_, services) =>
     {
         services.AddInfrastructure(config);
+        services.AddApplication();
         services.AddHostedService<Consumer>();
     })
     .Build();

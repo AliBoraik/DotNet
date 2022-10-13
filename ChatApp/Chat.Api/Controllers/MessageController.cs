@@ -27,7 +27,7 @@ namespace Chat.Api.Controllers
         public async Task<IActionResult> Create(MessagePost messagePost)
         {
             await _messageHub.Clients.All.ReceiveMessage(messagePost);
-            _producer.SendMessage(new Message() {User = messagePost.User, MessageText = messagePost.Message, MessageDate = DateTime.Now});
+            _producer.SendMessage(new Message() {User = messagePost.User, MessageText = messagePost.Message, MessageDate = DateTime.Now.ToUniversalTime()});
             return Ok();
         }
 
