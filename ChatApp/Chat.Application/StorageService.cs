@@ -10,15 +10,12 @@ public class StorageService : IStorageService
 {
     public async Task<S3ResponseDto> UploadFileAsync(S3Object obj, AwsCredentials awsCredentialsValues)
     {
-        //var awsCredentialsValues = _config.ReadS3Credentials();
-
-        //Console.WriteLine($"Key: {awsCredentialsValues.AccessKey}, Secret: {awsCredentialsValues.SecretKey}");
-
         var credentials = new BasicAWSCredentials(awsCredentialsValues.AccessKey, awsCredentialsValues.SecretKey);
 
-        var config = new AmazonS3Config() 
+        var config = new AmazonS3Config
         {
-            RegionEndpoint = Amazon.RegionEndpoint.EUWest2
+            RegionEndpoint = Amazon.RegionEndpoint.EUWest2,
+            ServiceURL = "http://localhost:8000"
         };
 
         var response = new S3ResponseDto();
@@ -34,7 +31,14 @@ public class StorageService : IStorageService
 
             // initialise client
             using var client = new AmazonS3Client(credentials, config);
-
+            // TODO:  move to method...
+            var list = await client.ListBucketsAsync();
+            var hasBucket = list.Buckets.Any(listBucket => listBucket.BucketName.Equals(obj.BucketName));
+            if (!hasBucket)
+            {
+                await client.PutBucketAsync(obj.BucketName);
+            }
+            
             // initialise the upload tools
             var transferUtility = new TransferUtility(client);
 

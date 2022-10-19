@@ -31,7 +31,7 @@ namespace Chat.Api.Controllers
 
             var s3Obj = new S3Object
             {
-                BucketName = "demo-bucket",
+                BucketName = _config["AwsConfiguration:AWSBucket"],
                 InputStream = memoryStream,
                 Name = docName
             };
