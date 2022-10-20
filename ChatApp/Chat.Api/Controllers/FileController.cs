@@ -1,4 +1,5 @@
 ﻿using Chat.Domain;
+using Chat.Domain.Entities;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using static System.Guid;
@@ -11,11 +12,13 @@ namespace Chat.Api.Controllers
     {
         private readonly IStorageService _storageService;
         private readonly IConfiguration _config;
+        private readonly IFileMetaDbContext _fileMetaDbContext;
 
-        public FileController(IStorageService storageService, IConfiguration config)
+        public FileController(IStorageService storageService, IConfiguration config, IFileMetaDbContext fileMetaDbContext)
         {
             _storageService = storageService;
             _config = config;
+            _fileMetaDbContext = fileMetaDbContext;
         }
 
         [HttpPost(Name = "UploadFile")]
@@ -43,6 +46,18 @@ namespace Chat.Api.Controllers
             };
 
             var result = await _storageService.UploadFileAsync(s3Obj, cred);
+            
+            if (result.StatusCode == 201)
+            {
+                var fileMeta = new FileMeta()
+                {
+                    Name = file.Name ?? "file",
+                    Date = DateTime.Now
+                };
+
+                await _fileMetaDbContext.CreateAsync(fileMeta);
+            }
+
             return Ok(result);
         }
         

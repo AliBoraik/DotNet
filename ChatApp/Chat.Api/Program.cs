@@ -2,7 +2,6 @@ using Chat.Api.Hubs;
 using Chat.Api.Producer;
 using Chat.Application;
 using Chat.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +28,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -50,6 +48,6 @@ app.UseAuthorization();
 app.MapHub<MessageHub>("/message");
 app.MapControllers();
 var services = app.Services.CreateScope().ServiceProvider;
-services.GetRequiredService<MessageDataContext>().Database.Migrate();
+//services.GetRequiredService<MessageDataContext>().Database.Migrate();
 
 app.Run();
