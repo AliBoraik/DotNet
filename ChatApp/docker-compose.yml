@@ -2,11 +2,25 @@ version: '3.4'
 
 services:
   chat.api:
-    build: .
+    build: 
+      dockerfile:  Dockerfile-Api
     ports:
       - '7043:80'
+    restart: always
     environment:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
+    networks:
+      - chatapp
+    depends_on:
+      - rabbitmq
+
+  background-service:
+    build: 
+      dockerfile:  Dockerfile-background
+    environment:
+      CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
+    ports:
+      - "8043:80"
     networks:
       - chatapp
     depends_on:
@@ -31,6 +45,19 @@ services:
       POSTGRES_DB: "messagedb"
     networks:
       - chatapp
+  zenko:
+      image: zenko/cloudserver:latest
+      environment:
+        SCALITY_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
+        SCALITY_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        S3DATA: "multiple"
+        S3BACKEND: "mem"
+      ports:
+        - '8000:8000'
+      restart: always
+      container_name: zenko
+      networks:
+        - chatapp
     
   rabbitmq:
     image: rabbitmq:3-management-alpine

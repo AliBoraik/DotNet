@@ -40,6 +40,7 @@ public class Consumer : Microsoft.Extensions.Hosting.BackgroundService
         var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += async (model, ea) =>
         {
+            Console.WriteLine("RECIVED");
             try
             {
                 var body = ea.Body.ToArray();

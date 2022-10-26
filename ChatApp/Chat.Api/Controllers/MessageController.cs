@@ -1,10 +1,9 @@
 ﻿using Chat.Api.Hubs;
 using Chat.Api.Hubs.Clients;
-using Chat.Api.Models;
 using Chat.Api.Producer;
+using Chat.Domain;
 using Chat.Domain.Entities;
 using Chat.Interfaces;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -28,7 +27,7 @@ namespace Chat.Api.Controllers
         public async Task<IActionResult> Create(MessagePost messagePost)
         {
             await _messageHub.Clients.All.ReceiveMessage(messagePost);
-            _producer.SendMessage(new Message() {User = messagePost.User, MessageText = messagePost.Message, MessageDate = DateTime.Now});
+            _producer.SendMessage(new Message() {User = messagePost.User, MessageText = messagePost.Message, MessageDate = DateTime.Now.ToUniversalTime()});
             return Ok();
         }
 

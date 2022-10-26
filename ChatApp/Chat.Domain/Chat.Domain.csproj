@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.S3" Version="3.7.9.69" />
+      <PackageReference Include="MongoDB.Bson" Version="2.18.0" />
+    </ItemGroup>
+
 </Project>

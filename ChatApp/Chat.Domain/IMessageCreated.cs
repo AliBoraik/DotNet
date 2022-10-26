@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chat.Api.Models
+namespace Chat.Domain
 {
     public interface IMessageCreated
     {
