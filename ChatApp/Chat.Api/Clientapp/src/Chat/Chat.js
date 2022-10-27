@@ -45,12 +45,11 @@ const Chat = () => {
             .catch(e => console.log('Connection failed: ', e));
     }, []);
 
-    const sendMessage = async (user, message) => {
+    const sendMessage = async (user, message,file) => {
         const chatMessage = {
             user: user,
             message: message
         };
-
         try {
             await  fetch('http://localhost:7043/api/message', { 
                 method: 'POST', 
@@ -59,6 +58,18 @@ const Chat = () => {
                     'Content-Type': 'application/json'
                 }
             });
+            if (file){
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('fileName', file.name);
+                await  fetch('http://localhost:7043/api/file', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+            }
         }
         catch(e) {
             console.log('Sending message failed.', e);
