@@ -24,10 +24,10 @@ namespace Chat.Api.Controllers
             _producer = producer;
         }
         [HttpPost]
-        public async Task<IActionResult> Create(MessagePost messagePost)
+        public async Task<IActionResult> Create(MessageDto messageDto)
         {
-            await _messageHub.Clients.All.ReceiveMessage(messagePost);
-            _producer.SendMessage(new Message() {User = messagePost.User, MessageText = messagePost.Message, MessageDate = DateTime.Now.ToUniversalTime()});
+            await _messageHub.Clients.All.ReceiveMessage(messageDto);
+            _producer.SendMessage(new Message() {User = messageDto.User, MessageText = messageDto.Message, MessageDate = DateTime.Now.ToUniversalTime()});
             return Ok();
         }
 

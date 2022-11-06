@@ -5,6 +5,6 @@ namespace Chat.Api.Hubs.Clients
 {
     public interface IChatClient
     {
-        Task ReceiveMessage(MessagePost message);
+        Task ReceiveMessage(MessageDto message);
     }
 }

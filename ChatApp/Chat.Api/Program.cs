@@ -1,8 +1,9 @@
 using Chat.Api.Hubs;
 using Chat.Api.Producer;
 using Chat.Application;
+using Chat.Application.Configurations;
 using Chat.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+using Chat.Infrastructure.Configurations;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ builder.Services.AddSingleton<MessageHub>();
 builder.Services.AddScoped<IRabbitMqProducer, RabbitMqProducer>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
@@ -29,7 +30,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -50,6 +50,6 @@ app.UseAuthorization();
 app.MapHub<MessageHub>("/message");
 app.MapControllers();
 var services = app.Services.CreateScope().ServiceProvider;
-services.GetRequiredService<MessageDataContext>().Database.Migrate();
+//services.GetRequiredService<MessageDataContext>().Database.Migrate();
 
 app.Run();

@@ -9,6 +9,7 @@ services:
     restart: always
     environment:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
+      ASPNETCORE_ENVIRONMENT: Development
     networks:
       - chatapp
     depends_on:
@@ -67,6 +68,19 @@ services:
       - 15672:15672
     networks:
       - chatapp
+
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    volumes:
+      - ~/mongo-db:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=mongo_test
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    ports:
+      - '27017:27017'
+        
 networks:
   chatapp:
     driver: bridge
