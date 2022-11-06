@@ -47,18 +47,18 @@ services:
     networks:
       - chatapp
   zenko:
-      image: zenko/cloudserver:latest
-      environment:
-        SCALITY_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
-        SCALITY_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-        S3DATA: "multiple"
-        S3BACKEND: "mem"
-      ports:
-        - '8000:8000'
-      restart: always
-      container_name: zenko
-      networks:
-        - chatapp
+    image: zenko/cloudserver:latest
+    environment:
+      SCALITY_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
+      SCALITY_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      S3DATA: "multiple"
+      S3BACKEND: "mem"
+    ports:
+      - '8000:8000'
+    restart: always
+    container_name: zenko
+    networks:
+      - chatapp
     
   rabbitmq:
     image: rabbitmq:3-management-alpine
