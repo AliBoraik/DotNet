@@ -1,4 +1,5 @@
 ﻿using Chat.Domain;
+using Chat.Domain.Dto;
 using Chat.Domain.Entities;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -24,13 +25,10 @@ namespace Chat.Api.Controllers
         [HttpPost(Name = "UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file, string bucketName)
         {
-            var fileExt = Path.GetExtension(file.FileName);
-            var docName = $"{NewGuid()}{fileExt}";
-
             var s3Obj = new S3Object
             {
                 File = file,
-                Name = docName,
+                Name = file.FileName,
                 BucketName = bucketName
             };
 
@@ -39,10 +37,20 @@ namespace Chat.Api.Controllers
           return Ok(result.Message);
         }
 
-        [HttpGet()]
-        public async Task<IActionResult> DownloadFile(string name)
+        [HttpGet]
+        public async Task<IActionResult> DownloadFile(string objectKey, string bucketName)
         {
-            return Ok();
+            var file = await _storageService.DownloadFileAsync(objectKey, bucketName);
+
+            return File(file.ResponseStream, file.Headers.ContentType, file.Key);
+        }
+        
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllFile( string bucketName)
+        {
+            var files = await _storageService.GetAllObjectFromBucketAsync(bucketName);
+
+            return Ok(files);
         }
         
         [HttpPost("bucket")]

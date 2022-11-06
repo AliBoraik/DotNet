@@ -1,4 +1,4 @@
-﻿namespace Chat.Domain;
+﻿namespace Chat.Domain.Dto;
 
 public class S3ResponseDto
 {

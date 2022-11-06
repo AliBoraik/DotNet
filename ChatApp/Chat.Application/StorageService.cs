@@ -3,8 +3,10 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.Util.Internal;
 using Chat.Domain;
+using Chat.Domain.Dto;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Http;
+using S3Object = Chat.Domain.Dto.S3Object;
 
 
 namespace Chat.Application;
@@ -18,7 +20,7 @@ public class StorageService : IStorageService
         _amazonS3 = amazonS3;
     }
 
-    public async Task<S3ResponseDto> UploadFileAsync(Chat.Domain.S3Object obj)
+    public async Task<S3ResponseDto> UploadFileAsync(S3Object obj)
     {
         await using var newMemoryStream = new MemoryStream();
         await obj.File.CopyToAsync(newMemoryStream);
@@ -41,10 +43,24 @@ public class StorageService : IStorageService
         return response;
     }
 
-    public async Task<IFormFile> DownloadFileAsync()
+    public async Task<GetObjectResponse> DownloadFileAsync(string objKey, string bucketName)
     {
-        throw new NotImplementedException();
-        
+        var downloadRequest = new GetObjectRequest()
+        {
+            BucketName = bucketName,
+            Key = objKey
+        };
+
+        var response = await _amazonS3.GetObjectAsync(downloadRequest);
+
+        return response;
+    }
+    
+    public async Task<List<Amazon.S3.Model.S3Object>> GetAllObjectFromBucketAsync(string bucketName)
+    {
+        var response = await _amazonS3.ListObjectsAsync(bucketName);
+
+        return response.S3Objects;
     }
 
     public async Task CreateBucketAsync(string name)
