@@ -8,7 +8,12 @@
 
     <ItemGroup>
       <PackageReference Include="AWSSDK.S3" Version="3.7.9.69" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />
       <PackageReference Include="MongoDB.Bson" Version="2.18.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Dto" />
     </ItemGroup>
 
 </Project>

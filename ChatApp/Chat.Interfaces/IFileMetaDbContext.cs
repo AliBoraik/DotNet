@@ -1,16 +1,17 @@
 ﻿using Chat.Domain.Entities;
+using Chat.Domain.Entities.MetaData;
 
 namespace Chat.Interfaces;
 
 public interface IFileMetaDbContext
 {
-    public Task<List<FileMeta>> GetAsync();
+    public Task<List<SimpleFileMeta>> GetAsync();
 
-    public Task<FileMeta?> GetAsync(string id);
+    public Task<SimpleFileMeta?> GetAsync(string id);
 
-    public Task CreateAsync(FileMeta newBook);
+    public Task CreateAsync(SimpleFileMeta newBook);
 
-    public Task UpdateAsync(string id, FileMeta updatedBook);
+    public Task UpdateAsync(string id, SimpleFileMeta updatedBook);
 
     public Task RemoveAsync(string id);
 }

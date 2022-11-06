@@ -22,44 +22,34 @@ namespace Chat.Api.Controllers
         }
 
         [HttpPost(Name = "UploadFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile(IFormFile file, string bucketName)
         {
-            // Process file
-            await using var memoryStream = new MemoryStream();
-            await file.CopyToAsync(memoryStream);
-
             var fileExt = Path.GetExtension(file.FileName);
-            var docName = $"{NewGuid()}.{fileExt}";
-            // call server
+            var docName = $"{NewGuid()}{fileExt}";
 
             var s3Obj = new S3Object
             {
-                BucketName = _config["AwsConfiguration:AWSBucket"],
-                InputStream = memoryStream,
-                Name = docName
+                File = file,
+                Name = docName,
+                BucketName = bucketName
             };
 
-            var cred = new AwsCredentials
-            {
-                AccessKey = _config["AwsConfiguration:AWSAccessKey"],
-                SecretKey = _config["AwsConfiguration:AWSSecretKey"]
-            };
+          var result = await _storageService.UploadFileAsync(s3Obj);
+          
+          return Ok(result.Message);
+        }
 
-            var result = await _storageService.UploadFileAsync(s3Obj, cred);
-            
-            if (result.StatusCode == 201)
-            {
-                var fileMeta = new FileMeta()
-                {
-                    Name = file.Name ?? "file",
-                    Date = DateTime.Now
-                };
-
-                await _fileMetaDbContext.CreateAsync(fileMeta);
-            }
-
-            return Ok(result);
+        [HttpGet()]
+        public async Task<IActionResult> DownloadFile(string name)
+        {
+            return Ok();
         }
         
+        [HttpPost("bucket")]
+        public async Task<IActionResult> CreateBucket(string name)
+        {
+            await _storageService.CreateBucketAsync(name);
+            return Ok($"Bucket {name} created");
+        }
     }
 }

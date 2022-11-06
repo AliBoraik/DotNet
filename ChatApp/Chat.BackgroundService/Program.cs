@@ -1,6 +1,8 @@
 using Chat.Application;
+using Chat.Application.Configurations;
 using Chat.BackgroundService;
 using Chat.Infrastructure;
+using Chat.Infrastructure.Configurations;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -11,7 +13,7 @@ var host = Host
     .ConfigureServices((_, services) =>
     {
         services.AddInfrastructure(config);
-        services.AddApplication();
+        services.AddApplication(config);
         services.AddHostedService<Consumer>();
     })
     .Build();

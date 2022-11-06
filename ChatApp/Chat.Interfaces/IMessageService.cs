@@ -6,5 +6,4 @@ public interface IMessageService
 {
     Task<List<Message>> GetAll();
     Task Create(Message item);
-    Task Delete(int id);
 }

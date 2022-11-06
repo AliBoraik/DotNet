@@ -1,64 +1,60 @@
-﻿using Amazon.Runtime;
-using Amazon.S3;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.S3.Transfer;
+using Amazon.Util.Internal;
 using Chat.Domain;
 using Chat.Interfaces;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Chat.Application;
 
 public class StorageService : IStorageService
 {
-    public async Task<S3ResponseDto> UploadFileAsync(S3Object obj, AwsCredentials awsCredentialsValues)
-    {
-        var credentials = new BasicAWSCredentials(awsCredentialsValues.AccessKey, awsCredentialsValues.SecretKey);
+    private readonly IAmazonS3 _amazonS3;
 
-        var config = new AmazonS3Config
+    public StorageService(IAmazonS3 amazonS3)
+    {
+        _amazonS3 = amazonS3;
+    }
+
+    public async Task<S3ResponseDto> UploadFileAsync(Chat.Domain.S3Object obj)
+    {
+        await using var newMemoryStream = new MemoryStream();
+        await obj.File.CopyToAsync(newMemoryStream);
+        var uploadRequest = new TransferUtilityUploadRequest
         {
-            RegionEndpoint = Amazon.RegionEndpoint.EUWest2,
-            ServiceURL = "http://localhost:8000"
+            InputStream = newMemoryStream,
+            Key = obj.File.FileName,
+            BucketName = obj.BucketName,
+            CannedACL = S3CannedACL.PublicRead
         };
 
-        var response = new S3ResponseDto();
-        try
+        var transferUtility = new TransferUtility(_amazonS3);
+        await transferUtility.UploadAsync(uploadRequest);
+        
+        var response = new S3ResponseDto()
         {
-            var uploadRequest = new TransferUtilityUploadRequest()
-            {
-                InputStream = obj.InputStream,
-                Key = obj.Name,
-                BucketName = obj.BucketName,
-                CannedACL = S3CannedACL.NoACL
-            };
-
-            // initialise client
-            using var client = new AmazonS3Client(credentials, config);
-            // TODO:  move to method...
-            var list = await client.ListBucketsAsync();
-            var hasBucket = list.Buckets.Any(listBucket => listBucket.BucketName.Equals(obj.BucketName));
-            if (!hasBucket)
-            {
-                await client.PutBucketAsync(obj.BucketName);
-            }
-            
-            // initialise the upload tools
-            var transferUtility = new TransferUtility(client);
-
-            // initiate the file upload
-            await transferUtility.UploadAsync(uploadRequest);
-
-            response.StatusCode = 201;
-            response.Message = $"{obj.Name} has been uploaded successfully";
-        }
-        catch(AmazonS3Exception s3Ex)
-        {
-            response.StatusCode = (int)s3Ex.StatusCode;
-            response.Message = s3Ex.Message;
-        }
-        catch(Exception ex)
-        {
-            response.StatusCode = 500;
-            response.Message = ex.Message;
-        }
-
+            StatusCode = 201,
+            Message = $"{obj.Name} has been uploaded successfully"
+        };
         return response;
+    }
+
+    public async Task<IFormFile> DownloadFileAsync()
+    {
+        throw new NotImplementedException();
+        
+    }
+
+    public async Task CreateBucketAsync(string name)
+    {
+        var bucketRequest = new PutBucketRequest()
+        {
+            BucketName = name,
+            UseClientRegion = true,
+        };
+        
+        await _amazonS3.PutBucketAsync(bucketRequest);
     }
 }

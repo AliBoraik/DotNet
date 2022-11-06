@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Chat.Domain.Entities;
+namespace Chat.Domain.Entities.MetaData;
 
-public class FileMeta
+public class SimpleFileMeta
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

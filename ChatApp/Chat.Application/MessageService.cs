@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Application;
 
-public class MessageService: IMessageService
+public class MessageService : IMessageService
 {
     private readonly MessageDataContext _db;
 
@@ -24,14 +24,5 @@ public class MessageService: IMessageService
         await _db.Messages.AddAsync(item);
 
         await _db.SaveChangesAsync();
-    }
-    public async Task Delete(int id)
-    {
-        await Task.Run(() =>
-        {
-            Message order = _db.Messages.Find(id);
-            if (order != null)
-                _db.Messages.Remove(order);
-        });
     }
 }
