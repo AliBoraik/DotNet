@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Chat_Style.css'
 
 import Message from './Message/Message';
 
@@ -9,9 +10,9 @@ const ChatWindow = (props) => {
             user={m.user}
             message={m.message}/>);
     return(
-        <div>
+        <main className="msger-chat">
             {chat}
-        </div>
+        </main>
     )
 };
 

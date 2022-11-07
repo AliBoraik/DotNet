@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
+import './Chat_Style.css'
 
 import ChatWindow from './ChatWindow/ChatWindow';
 import ChatInput from './ChatInput/ChatInput';
@@ -44,12 +45,11 @@ const Chat = () => {
             .catch(e => console.log('Connection failed: ', e));
     }, []);
 
-    const sendMessage = async (user, message) => {
+    const sendMessage = async (user, message,file) => {
         const chatMessage = {
             user: user,
             message: message
         };
-
         try {
             await  fetch('http://localhost:7043/api/message', { 
                 method: 'POST', 
@@ -58,6 +58,18 @@ const Chat = () => {
                     'Content-Type': 'application/json'
                 }
             });
+            if (file){
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('fileName', file.name);
+                await  fetch('http://localhost:7043/api/file', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+            }
         }
         catch(e) {
             console.log('Sending message failed.', e);
@@ -65,11 +77,18 @@ const Chat = () => {
     }
 
     return (
-        <div>
-            <ChatInput sendMessage={sendMessage} />
-            <hr/>
+        <section className="msger">
+            <header className="msger-header">
+                <div className="msger-header-title">
+                    <i className="fas fa-comment-alt"></i> Chat App
+                </div>
+            </header>
             <ChatWindow chat={chat}/>
-        </div>
+            <div>
+                <ChatInput sendMessage={sendMessage} />
+                <hr/>
+            </div>
+        </section>
     );
 };
 
