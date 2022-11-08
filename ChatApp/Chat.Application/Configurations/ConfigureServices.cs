@@ -4,6 +4,7 @@ using Amazon.S3;
 using Chat.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Chat.Application.Configurations;
 
@@ -14,6 +15,9 @@ public static class ConfigureServices
         services.AddAws(configuration);
         services.AddTransient<IMessageService, MessageService>();
         services.AddTransient<IStorageService,StorageService>();
+        services.AddTransient<ICacheService,CacheService>();
+        IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+        services.AddScoped(s => redis.GetDatabase());
         
         return services;
     }

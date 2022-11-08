@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Chat.Domain\Chat.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="StackExchange.Redis" Version="2.6.70" />
+    </ItemGroup>
+
 </Project>
