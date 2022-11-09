@@ -16,6 +16,7 @@
       <PackageReference Include="AWSSDK.S3" Version="3.7.9.69" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+      <PackageReference Include="StackExchange.Redis" Version="2.6.70" />
     </ItemGroup>
 
 </Project>
