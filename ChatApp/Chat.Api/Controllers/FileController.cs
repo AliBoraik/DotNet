@@ -42,13 +42,17 @@ namespace Chat.Api.Controllers
 
             var result = await _storageService.UploadFileAsync(s3Obj);
             
-            /*await _mongoDbContext.image.CreateAsync(new Image
+            await _mongoDbContext.CreateAsync(new MongoFile<object>
             {
-                Name = "Name",
-                Type = ImageType.Png,
-                Author = "Author",
-                Resolution = "1024x720"
-            });*/
+                Type = FileType.Image,
+                Data = new Image
+                {
+                    Name = "Name",
+                    Type = ImageType.Png,
+                    Author = "Author",
+                    Resolution = "1024x720"
+                }
+            });
           
           return Ok(result.Message);
         }

@@ -2,12 +2,8 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class Music : MongoFile
+public class Music
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
-
     public string Artist { get; set; } = null!;
 
     public string Album { get; set; } = null!;

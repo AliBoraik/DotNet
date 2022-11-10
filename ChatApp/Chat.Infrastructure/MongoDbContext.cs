@@ -6,9 +6,7 @@ using MongoDB.Driver;
 
 public class MongoDbContext
 {
-    public readonly MongoDbCollection<Music> music;
-    public readonly MongoDbCollection<Video> video;
-    public readonly MongoDbCollection<Image> image;
+    private readonly IMongoCollection<MongoFile<object>> _collection;
 
     public MongoDbContext(
         IOptions<MongoDbSettings> mongoDbSettings)
@@ -18,15 +16,22 @@ public class MongoDbContext
 
         var mongoDatabase = mongoClient.GetDatabase(
             mongoDbSettings.Value.DatabaseName);
-
-        music = new MongoDbCollection<Music>(
-            mongoDatabase, mongoDbSettings.Value.MusicCollectionName);
         
-        video = new MongoDbCollection<Video>(
-            mongoDatabase, mongoDbSettings.Value.VideoCollectionName);
-
-        image = new MongoDbCollection<Image>(
-            mongoDatabase, mongoDbSettings.Value.ImageCollectionName);
-
+        _collection = mongoDatabase.GetCollection<MongoFile<object>>(mongoDbSettings.Value.DatabaseName);
     }
+    
+    public async Task<List<MongoFile<object>>> GetAsync() =>
+        await _collection.Find(_ => true).ToListAsync();
+
+    public async Task<MongoFile<object>> GetAsync(string id) =>
+        await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+    public async Task CreateAsync(MongoFile<object> data) =>
+        await _collection.InsertOneAsync(data);
+
+    public async Task UpdateAsync(string id, MongoFile<object> updatedData) =>
+        await _collection.ReplaceOneAsync(x => x.Id == id, updatedData);
+
+    public async Task RemoveAsync(string id) =>
+        await _collection.DeleteOneAsync(x => x.Id == id);
 }
