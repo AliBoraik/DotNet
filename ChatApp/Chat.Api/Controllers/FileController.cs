@@ -47,7 +47,7 @@ namespace Chat.Api.Controllers
                 Type = FileType.Image,
                 Data = new Image
                 {
-                    Name = "Name",
+                    Name = file.FileName,
                     Type = ImageType.Png,
                     Author = "Author",
                     Resolution = "1024x720"
@@ -63,6 +63,28 @@ namespace Chat.Api.Controllers
             var file = await _storageService.DownloadFileAsync(objectKey, bucketName);
 
             return File(file.ResponseStream, file.Headers.ContentType, file.Key);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMetaData(string id)
+        {
+            // return Ok(await _mongoDbContext.GetAsync(id));
+            var result = await _mongoDbContext.GetAsync(id);
+
+            switch (result.Type)
+            {
+                case FileType.Image:
+                    var image = (Image)result.Data;
+                    return Ok($"Image \"{image.Name}\" ({image.Type}) by \"{image.Author}\".");
+                case FileType.Music:
+                    var music = (Music)result.Data;
+                    return Ok($"Music \"{music.Name}\" ({music.Duration}) by \"{music.Artist}\" is in \"{music.Album}\".");
+                case FileType.Video:
+                    var video = (Video)result.Data;
+                    return Ok($"Music \"{video.Title}\" ({video.Type}) by \"{video.Director}\" and has artists: {String.Join(", ", video.Artists)}.");
+                default:
+                    return Ok($"Unknown format {result.Type}");
+            }
         }
         
         [HttpGet("all")]
