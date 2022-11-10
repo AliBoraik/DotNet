@@ -12,5 +12,5 @@ public class Video
 
     public string Director { get; set; } = null!;
 
-    public int[] Artists { get; set; } = null!;
+    public string[] Artists { get; set; } = null!;
 }
