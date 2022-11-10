@@ -10,5 +10,7 @@ public class MongoFile
     
     public FileType? Type { get; set; }
     
+    public DateTime Date { get; set; }
+    
     public object Data { get; set; }
 }
