@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace Chat.Infrastructure;
 
-public class MongoDbCollection<T> where T : MongoFile<object>
+public class MongoDbCollection<T> where T : MongoFile
 {
     private readonly IMongoCollection<T> _collection;
 

@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class MongoFile<T>
+public class MongoFile
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -10,5 +10,5 @@ public class MongoFile<T>
     
     public FileType? Type { get; set; }
     
-    public T Data { get; set; }
+    public object Data { get; set; }
 }

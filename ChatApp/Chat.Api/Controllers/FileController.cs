@@ -42,7 +42,7 @@ namespace Chat.Api.Controllers
 
             var result = await _storageService.UploadFileAsync(s3Obj);
             
-            await _mongoDbContext.CreateAsync(new MongoFile<object>
+            await _mongoDbContext.CreateAsync(new MongoFile
             {
                 Type = FileType.Image,
                 Data = new Image
