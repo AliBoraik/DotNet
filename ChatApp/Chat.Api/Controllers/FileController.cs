@@ -1,6 +1,7 @@
 ﻿using Chat.Domain;
 using Chat.Domain.Dto;
 using Chat.Domain.Entities;
+using Chat.Infrastructure;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using static System.Guid;
@@ -14,12 +15,19 @@ namespace Chat.Api.Controllers
         private readonly IStorageService _storageService;
         private readonly IConfiguration _config;
         private readonly IFileMetaDbContext _fileMetaDbContext;
+        private readonly MongoDbContext _mongoDbContext;
 
-        public FileController(IStorageService storageService, IConfiguration config, IFileMetaDbContext fileMetaDbContext)
+        public FileController(
+            IStorageService storageService,
+            IConfiguration config,
+            IFileMetaDbContext fileMetaDbContext,
+            MongoDbContext mongoDbContext
+            )
         {
             _storageService = storageService;
             _config = config;
             _fileMetaDbContext = fileMetaDbContext;
+            _mongoDbContext = mongoDbContext;
         }
 
         [HttpPost(Name = "UploadFile")]
@@ -32,7 +40,19 @@ namespace Chat.Api.Controllers
                 BucketName = bucketName
             };
 
-          var result = await _storageService.UploadFileAsync(s3Obj);
+            var result = await _storageService.UploadFileAsync(s3Obj);
+            
+            await _mongoDbContext.CreateAsync(new MongoFile
+            {
+                Type = FileType.Image,
+                Data = new Image
+                {
+                    Name = file.FileName,
+                    Type = ImageType.Png,
+                    Author = "Author",
+                    Resolution = "1024x720"
+                }
+            });
           
           return Ok(result.Message);
         }
@@ -43,6 +63,28 @@ namespace Chat.Api.Controllers
             var file = await _storageService.DownloadFileAsync(objectKey, bucketName);
 
             return File(file.ResponseStream, file.Headers.ContentType, file.Key);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMetaData(string id)
+        {
+            // return Ok(await _mongoDbContext.GetAsync(id));
+            var result = await _mongoDbContext.GetAsync(id);
+
+            switch (result.Type)
+            {
+                case FileType.Image:
+                    var image = (Image)result.Data;
+                    return Ok($"Image \"{image.Name}\" ({image.Type}) by \"{image.Author}\".");
+                case FileType.Music:
+                    var music = (Music)result.Data;
+                    return Ok($"Music \"{music.Name}\" ({music.Duration}) by \"{music.Artist}\" is in \"{music.Album}\".");
+                case FileType.Video:
+                    var video = (Video)result.Data;
+                    return Ok($"Music \"{video.Title}\" ({video.Type}) by \"{video.Director}\" and has artists: {String.Join(", ", video.Artists)}.");
+                default:
+                    return Ok($"Unknown format {result.Type}");
+            }
         }
         
         [HttpGet("all")]

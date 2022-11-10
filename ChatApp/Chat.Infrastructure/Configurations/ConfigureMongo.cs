@@ -8,8 +8,8 @@ public static class ConfigureMongo
 {
     public static IServiceCollection AddMongo(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<FileMetaDbSettings>(configuration.GetSection("FileMetaDb"));
-        services.AddSingleton<IFileMetaDbContext, FileMetaDbContext>();
+        services.Configure<MongoDbSettings>(configuration.GetSection("MongoDb"));
+        services.AddSingleton<MongoDbContext>();
 
         return services;
     }
