@@ -1,10 +1,11 @@
 ﻿using Chat.Domain.Dto;
+using Chat.Interfaces;
 
 namespace Chat.Infrastructure;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-public class MongoDbContext
+public class MongoDbContext : IMongoDbContext
 {
     private readonly IMongoCollection<MongoFile> _collection;
 

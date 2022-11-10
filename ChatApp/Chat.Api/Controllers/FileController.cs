@@ -14,19 +14,16 @@ namespace Chat.Api.Controllers
     {
         private readonly IStorageService _storageService;
         private readonly IConfiguration _config;
-        private readonly IFileMetaDbContext _fileMetaDbContext;
-        private readonly MongoDbContext _mongoDbContext;
+        private readonly IMongoDbContext _mongoDbContext;
 
         public FileController(
             IStorageService storageService,
             IConfiguration config,
-            IFileMetaDbContext fileMetaDbContext,
-            MongoDbContext mongoDbContext
+            IMongoDbContext mongoDbContext
             )
         {
             _storageService = storageService;
             _config = config;
-            _fileMetaDbContext = fileMetaDbContext;
             _mongoDbContext = mongoDbContext;
         }
 
@@ -45,6 +42,7 @@ namespace Chat.Api.Controllers
             await _mongoDbContext.CreateAsync(new MongoFile
             {
                 Type = FileType.Image,
+                Date = DateTime.Now,
                 Data = new Image
                 {
                     Name = file.FileName,
