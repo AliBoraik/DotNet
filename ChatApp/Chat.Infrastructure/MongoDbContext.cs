@@ -6,9 +6,9 @@ using MongoDB.Driver;
 
 public class MongoDbContext
 {
-    readonly MongoDbCollection<Music> music;
-    readonly MongoDbCollection<Video> video;
-    readonly MongoDbCollection<Image> image;
+    public readonly MongoDbCollection<Music> music;
+    public readonly MongoDbCollection<Video> video;
+    public readonly MongoDbCollection<Image> image;
 
     public MongoDbContext(
         IOptions<MongoDbSettings> mongoDbSettings)
