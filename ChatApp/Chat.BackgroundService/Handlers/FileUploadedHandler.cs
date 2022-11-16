@@ -4,6 +4,7 @@ using Chat.Domain.Messages;
 using Chat.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Shared.Enums;
 
 namespace Chat.BackgroundService.Handlers;
 
@@ -12,12 +13,13 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     private IConnection _connection;
     private IModel _channel;
     private ConnectionFactory _connectionFactory;
-    private IMessageService _messageService;
+    private ICacheService _cacheService;
     private readonly string _queueName;
 
-    public FileUploadedHandler(IMessageService messageService)
+    public FileUploadedHandler(IMessageService messageService, ICacheService cacheService)
     {
-        _messageService = messageService;
+        _cacheService = cacheService;
+        _cacheService.ChangeDatabase(Database.Common);
         _queueName = "ChatApp.File";
     }
     
@@ -48,7 +50,14 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<FileUploadMessage>(body);
 
+                _cacheService.IncrementAsync(message.RequestId.ToString());
+                var counter = _cacheService.GetData(message.RequestId.ToString());
                 
+                
+                if (counter == "2")
+                {
+                    //todo: handling
+                }
             }
             catch (Exception exception)
             {

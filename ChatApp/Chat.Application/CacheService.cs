@@ -27,6 +27,11 @@ public class CacheService : ICacheService
          return _db.StringSet(key, value);
     }
 
+    public void IncrementAsync(string key)
+    {
+        _db.StringIncrement(key);
+    }
+
     public string? GetData(string key)
     {
         return _db.StringGet(key);
