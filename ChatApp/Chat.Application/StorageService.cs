@@ -20,25 +20,37 @@ public class StorageService : IStorageService
         _amazonS3 = amazonS3;
     }
 
-    public async Task<S3ResponseDto> UploadFileAsync(S3Object obj)
+    public async Task<S3ResponseDto> UploadFileAsync(IFormFile file)
     {
+        var obj = new S3Object
+        {
+            File = file,
+            Name = file.FileName,
+            BucketName = "temp"
+        };
+        
         await using var newMemoryStream = new MemoryStream();
         await obj.File.CopyToAsync(newMemoryStream);
+
         var uploadRequest = new TransferUtilityUploadRequest
         {
             InputStream = newMemoryStream,
-            Key = obj.File.FileName,
+            Key = obj.Name,
             BucketName = obj.BucketName,
             CannedACL = S3CannedACL.PublicRead
         };
 
         var transferUtility = new TransferUtility(_amazonS3);
-        await transferUtility.UploadAsync(uploadRequest);
+
         
+        
+        await transferUtility.UploadAsync(uploadRequest);
+
         var response = new S3ResponseDto()
         {
             StatusCode = 201,
-            Message = $"{obj.Name} has been uploaded successfully"
+            Message = $"{obj.Name} has been uploaded successfully",
+            FileName = obj.Name
         };
         return response;
     }

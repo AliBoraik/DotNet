@@ -5,7 +5,7 @@ namespace Chat.Interfaces;
 
 public interface ICacheService
 {
-    bool SetData(Guid key,MetadataUpload metadataUpload, DateTimeOffset expirationTime);
-    MetadataUpload? GetData(Guid key);
-    object RemoveData(Guid key);
+    bool SetData(string key, string value);
+    string? GetData(string key);
+    bool RemoveData(string key);
 }
