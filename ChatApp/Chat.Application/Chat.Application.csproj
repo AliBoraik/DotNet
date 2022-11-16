@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Chat.Infrastructure\Chat.Infrastructure.csproj" />
       <ProjectReference Include="..\Chat.Interfaces\Chat.Interfaces.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,9 +1,11 @@
 ﻿using System.Text.Json;
 using Chat.Api.Producer;
 using Chat.Domain.Dto;
+using Chat.Domain.Messages;
 using Chat.Domain.Metadata;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Enums;
 
 namespace Chat.Api.Controllers;
 [ApiController]
@@ -17,6 +19,7 @@ public class MetaDataController : Controller
     public MetaDataController(ICacheService cacheService, IMongoDbContext mongoDbContext, IRabbitMqProducer producer)
     {
         _cacheService = cacheService;
+        _cacheService.ChangeDatabase(Database.Meta);
         _mongoDbContext = mongoDbContext;
         _producer = producer;
     }
@@ -26,7 +29,8 @@ public class MetaDataController : Controller
     {
         var metaJson = JsonSerializer.Serialize(meta);
         _cacheService.SetData(requestId.ToString(), metaJson);
-
+        _producer.SendMessage(new MetaUploadMessage(){RequestId = requestId});
+        
         return Ok("Metadata successfully uploaded");
     }
     

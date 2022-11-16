@@ -2,9 +2,11 @@
 using Chat.Domain;
 using Chat.Domain.Dto;
 using Chat.Domain.Entities;
+using Chat.Domain.Messages;
 using Chat.Infrastructure;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Enums;
 using static System.Guid;
 
 namespace Chat.Api.Controllers
@@ -13,14 +15,15 @@ namespace Chat.Api.Controllers
     [Route("api/file")]
     public class FileController : Controller
     {
-        private readonly IStorageService _storageService;
         private readonly ICacheService _cacheService;
+        private readonly IStorageService _storageService;
         private readonly IRabbitMqProducer _producer;
 
         public FileController(IStorageService storageService, ICacheService cacheService, IRabbitMqProducer producer)
         {
-            _storageService = storageService;
             _cacheService = cacheService;
+            _cacheService.ChangeDatabase(Database.File);
+            _storageService = storageService;
             _producer = producer;
         }
 
@@ -30,6 +33,8 @@ namespace Chat.Api.Controllers
             var result = await _storageService.UploadFileAsync(file);
 
             _cacheService.SetData(requestId.ToString(), result.FileName);  //cache file Id
+            
+            _producer.SendMessage(new FileUploadMessage(){RequestId = requestId});
             
             return Ok(result.Message);
         }

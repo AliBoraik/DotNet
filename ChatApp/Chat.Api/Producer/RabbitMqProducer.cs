@@ -12,20 +12,22 @@ public class RabbitMqProducer: IRabbitMqProducer
         SendMessage(message);
     }
 
-    public void SendMessage(string message)
+    public void SendMessage<T>(T message, string queue)
     {
 
         var factory = new ConnectionFactory() { HostName = "rabbitmq" };
         using (var connection = factory.CreateConnection())
         using (var channel = connection.CreateModel())
         {
-            channel.QueueDeclare(queue: "ChatApp",
+            channel.QueueDeclare(queue: queue,
                 durable: false,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
 
-            var body = Encoding.UTF8.GetBytes(message);
+            var messageJson = JsonSerializer.Serialize(message);
+            
+            var body = Encoding.UTF8.GetBytes(messageJson);
 
             channel.BasicPublish(exchange: "",
                 routingKey: "ChatApp",
