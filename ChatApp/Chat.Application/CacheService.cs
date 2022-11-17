@@ -13,7 +13,7 @@ public class CacheService : ICacheService
 
     public CacheService(IDatabase db)
     {
-        _redis = ConnectionMultiplexer.Connect("localhost");
+        //_redis = ConnectionMultiplexer.Connect("localhost");
         _db = _redis.GetDatabase((int) Database.Common);
     }
 

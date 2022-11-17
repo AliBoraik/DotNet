@@ -2,6 +2,6 @@
 
 public interface IRabbitMqProducer
 {
-    void SendMessage(object obj);
+    //void SendMessage(object obj);
     void SendMessage<T>(T message, string queue);
 }

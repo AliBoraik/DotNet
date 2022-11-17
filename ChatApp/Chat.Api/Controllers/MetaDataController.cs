@@ -28,8 +28,9 @@ public class MetaDataController : Controller
     public async Task<IActionResult> Set([FromForm] Guid requestId, [FromForm] MongoFile meta)
     {
         var metaJson = JsonSerializer.Serialize(meta);
+        Console.WriteLine($"Meta recived: {metaJson}");
         _cacheService.SetData(requestId.ToString(), metaJson);
-        _producer.SendMessage(new MetaUploadMessage(){RequestId = requestId});
+        _producer.SendMessage(new MetaUploadMessage(){RequestId = requestId}, "ChatApp.Message");
         
         return Ok("Metadata successfully uploaded");
     }

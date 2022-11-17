@@ -15,6 +15,7 @@ var host = Host
     {
         services.AddInfrastructure(config);
         services.AddApplication(config);
+        services.AddTransient<Producer>();
         
         services.AddHostedService<FileUploadedHandler>();
         services.AddHostedService<MetaUploadedHandler>();
