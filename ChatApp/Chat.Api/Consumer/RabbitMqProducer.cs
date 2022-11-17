@@ -1,28 +1,27 @@
 ﻿using System.Text.Json;
-using Chat.Domain.Entities;
+using Chat.Domain.Dto;
 using Chat.Domain.Messages;
 using Chat.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Shared.Enums;
 
-namespace Chat.BackgroundService.Handlers;
+namespace Chat.Api.Consumer;
 
-public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundService
+public class RabbitMqProducer : Microsoft.Extensions.Hosting.BackgroundService
 {
     private IConnection _connection;
     private IModel _channel;
     private ConnectionFactory _connectionFactory;
     private ICacheService _cacheService;
-    private readonly Producer _producer;
+    private readonly IMongoDbContext _mongoDb;
     private readonly string _queueName;
 
-    public FileUploadedHandler(IMessageService messageService, ICacheService cacheService, Producer producer)
+    public RabbitMqProducer(IMessageService messageService, ICacheService cacheService, IMongoDbContext mongoDb)
     {
         _cacheService = cacheService;
-        _producer = producer;
-        _cacheService.ChangeDatabase(Database.Common);
-        _queueName = "ChatApp.File";
+        _mongoDb = mongoDb;
+        _queueName = "ChatApp.DataUploaded";
     }
     
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -50,16 +49,16 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
             try
             {
                 var body = ea.Body.ToArray();
-                var message = JsonSerializer.Deserialize<FileUploadMessage>(body);
-
-                _cacheService.IncrementAsync(message.RequestId.ToString());
-                var counter = _cacheService.GetData(message.RequestId.ToString());
+                var message = JsonSerializer.Deserialize<DataUploadedMessage>(body);
                 
+                _cacheService.ChangeDatabase(Database.Meta);
+                var metaJson = _cacheService.GetData(message.RequestId.ToString());
+                var meta = JsonSerializer.Deserialize<MongoFile>(metaJson);
+                await _mongoDb.CreateAsync(meta);
                 
-                if (counter == "2")
-                {
-                    _producer.SendMessage(new DataUploadedMessage(){RequestId = message.RequestId});
-                }
+                _cacheService.ChangeDatabase(Database.File);
+                var file = _cacheService.GetData(message.RequestId.ToString());
+                //todo: move to persist bucket
             }
             catch (Exception exception)
             {

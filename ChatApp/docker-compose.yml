@@ -61,7 +61,7 @@ services:
       - chatapp
     
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq
     container_name: 'rabbitmq'
     ports:
       - 5672:5672

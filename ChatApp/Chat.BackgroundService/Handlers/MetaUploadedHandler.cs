@@ -14,11 +14,13 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     private IModel _channel;
     private ConnectionFactory _connectionFactory;
     private ICacheService _cacheService;
+    private readonly Producer _producer;
     private readonly string _queueName;
 
-    public MetaUploadedHandler(IMessageService messageService, ICacheService cacheService)
+    public MetaUploadedHandler(IMessageService messageService, ICacheService cacheService, Producer producer)
     {
         _cacheService = cacheService;
+        _producer = producer;
         _cacheService.ChangeDatabase(Database.Common);
         _queueName = "ChatApp.Meta";
     }
@@ -53,10 +55,9 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
                 _cacheService.IncrementAsync(message.RequestId.ToString());
                 var counter = _cacheService.GetData(message.RequestId.ToString());
                 
-                
                 if (counter == "2")
                 {
-                    //todo: handling
+                    _producer.SendMessage(new DataUploadedMessage(){RequestId = message.RequestId});
                 }
             }
             catch (Exception exception)

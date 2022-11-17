@@ -11,7 +11,7 @@ public class CacheService : ICacheService
     private ConnectionMultiplexer _redis;
     private IDatabase _db;
 
-    public CacheService(IDatabase db)
+    public CacheService()
     {
         _redis = ConnectionMultiplexer.Connect("localhost");
         _db = _redis.GetDatabase((int) Database.Common);
