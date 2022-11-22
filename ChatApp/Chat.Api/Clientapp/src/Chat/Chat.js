@@ -44,10 +44,11 @@ const Chat = () => {
             .catch(e => console.log('Connection failed: ', e));
     }, []);
 
-    const sendMessage = async (user, message) => {
+    const sendMessage = async (user, message, file) => {
         const chatMessage = {
             user: user,
-            message: message
+            message: message,
+            file: file
         };
 
         try {
