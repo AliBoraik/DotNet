@@ -55,7 +55,7 @@ namespace Chat.Api.Controllers
           return Ok(result.Message);
         }
 
-        [HttpGet]
+        [HttpGet("DownloadFile")]
         public async Task<IActionResult> DownloadFile(string objectKey, string bucketName)
         {
             var file = await _storageService.DownloadFileAsync(objectKey, bucketName);
