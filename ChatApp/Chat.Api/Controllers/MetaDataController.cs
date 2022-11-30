@@ -28,13 +28,14 @@ public class MetaDataController : Controller
     public async Task<IActionResult> Set([FromForm] Guid requestId, [FromForm] MongoFile meta)
     {
         var metaJson = JsonSerializer.Serialize(meta);
-        Console.WriteLine($"Meta recived: {metaJson}");
+        Console.WriteLine($"Meta received: {metaJson}");
         _cacheService.SetData(requestId.ToString(), metaJson);
-        _producer.SendMessage(new MetaUploadMessage(){RequestId = requestId}, "ChatApp.Message");
+        _producer.SendMessage(new MetaUploadMessage(){RequestId = requestId}, "ChatApp.Meta");
         
         return Ok("Metadata successfully uploaded");
     }
     
+    /*
     [HttpGet]
     public async Task<IActionResult> Get(string id)
     {
@@ -58,5 +59,6 @@ public class MetaDataController : Controller
                 return Ok($"Unknown format {result.Type}");
         }
     }
+    */
     
 }

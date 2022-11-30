@@ -27,15 +27,15 @@ namespace Chat.Api.Controllers
             _producer = producer;
         }
 
-        [HttpPost(Name = "UploadFile")]
+        [HttpPost]
         public async Task<IActionResult> UploadFile([FromForm] Guid requestId, IFormFile file)
         {
-            Console.WriteLine($"File recived: {file.Name}");
+            Console.WriteLine($"File received: {file.Name}");
             var result = await _storageService.UploadFileAsync(file);
 
             _cacheService.SetData(requestId.ToString(), result.FileName);  //cache file Id
             
-            _producer.SendMessage<FileUploadMessage>(new FileUploadMessage(){RequestId = requestId}, "ChatApp.File");
+            _producer.SendMessage<FileUploadMessage>(new FileUploadMessage(){ RequestId = requestId }, "ChatApp.File");
             
             return Ok(result.Message);
         }

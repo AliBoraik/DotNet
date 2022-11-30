@@ -13,7 +13,12 @@ public class CacheService : ICacheService
 
     public CacheService()
     {
-        //_redis = ConnectionMultiplexer.Connect("localhost");
+        var options = new ConfigurationOptions
+        {
+            AbortOnConnectFail = false,
+            EndPoints = { "localhost" }
+        };
+        _redis = ConnectionMultiplexer.Connect(options);
         _db = _redis.GetDatabase((int) Database.Common);
     }
 
