@@ -1,6 +1,7 @@
 using Chat.Application;
 using Chat.Application.Configurations;
 using Chat.BackgroundService;
+using Chat.BackgroundService.Handlers;
 using Chat.Infrastructure;
 using Chat.Infrastructure.Configurations;
 
@@ -14,7 +15,11 @@ var host = Host
     {
         services.AddInfrastructure(config);
         services.AddApplication(config);
-        services.AddHostedService<Consumer>();
+        services.AddTransient<Producer>();
+        
+        services.AddHostedService<FileUploadedHandler>();
+        services.AddHostedService<MetaUploadedHandler>();
+        services.AddHostedService<MessageSentHandler>();
     })
     .Build();
 

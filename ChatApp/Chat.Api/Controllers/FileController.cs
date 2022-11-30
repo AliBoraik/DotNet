@@ -1,9 +1,12 @@
-﻿using Chat.Domain;
+﻿using Chat.Api.Producer;
+using Chat.Domain;
 using Chat.Domain.Dto;
 using Chat.Domain.Entities;
+using Chat.Domain.Messages;
 using Chat.Infrastructure;
 using Chat.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Enums;
 using static System.Guid;
 
 namespace Chat.Api.Controllers
@@ -12,47 +15,29 @@ namespace Chat.Api.Controllers
     [Route("api/file")]
     public class FileController : Controller
     {
+        private readonly ICacheService _cacheService;
         private readonly IStorageService _storageService;
-        private readonly IConfiguration _config;
-        private readonly IMongoDbContext _mongoDbContext;
+        private readonly IRabbitMqProducer _producer;
 
-        public FileController(
-            IStorageService storageService,
-            IConfiguration config,
-            IMongoDbContext mongoDbContext
-            )
+        public FileController(IStorageService storageService, ICacheService cacheService, IRabbitMqProducer producer)
         {
+            _cacheService = cacheService;
+            _cacheService.ChangeDatabase(Database.File);
             _storageService = storageService;
-            _config = config;
-            _mongoDbContext = mongoDbContext;
+            _producer = producer;
         }
 
-        [HttpPost(Name = "UploadFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file, string bucketName)
+        [HttpPost]
+        public async Task<IActionResult> UploadFile([FromForm] Guid requestId, IFormFile file)
         {
-            var s3Obj = new S3Object
-            {
-                File = file,
-                Name = file.FileName,
-                BucketName = bucketName
-            };
+            Console.WriteLine($"File received: {file.Name}");
+            var result = await _storageService.UploadFileAsync(file);
 
-            var result = await _storageService.UploadFileAsync(s3Obj);
+            _cacheService.SetData(requestId.ToString(), result.FileName);  //cache file Id
             
-            await _mongoDbContext.CreateAsync(new MongoFile
-            {
-                Type = FileType.Image,
-                Date = DateTime.Now,
-                Data = new Image
-                {
-                    Name = file.FileName,
-                    Type = ImageType.Png,
-                    Author = "Author",
-                    Resolution = "1024x720"
-                }
-            });
-          
-          return Ok(result.Message);
+            _producer.SendMessage<FileUploadMessage>(new FileUploadMessage(){ RequestId = requestId }, "ChatApp.File");
+            
+            return Ok(result.Message);
         }
 
         [HttpGet("DownloadFile")]
@@ -63,27 +48,7 @@ namespace Chat.Api.Controllers
             return File(file.ResponseStream, file.Headers.ContentType, file.Key);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetMetaData(string id)
-        {
-            // return Ok(await _mongoDbContext.GetAsync(id));
-            var result = await _mongoDbContext.GetAsync(id);
-
-            switch (result.Type)
-            {
-                case FileType.Image:
-                    var image = (Image)result.Data;
-                    return Ok($"Image \"{image.Name}\" ({image.Type}) by \"{image.Author}\".");
-                case FileType.Music:
-                    var music = (Music)result.Data;
-                    return Ok($"Music \"{music.Name}\" ({music.Duration}) by \"{music.Artist}\" is in \"{music.Album}\".");
-                case FileType.Video:
-                    var video = (Video)result.Data;
-                    return Ok($"Music \"{video.Title}\" ({video.Type}) by \"{video.Director}\" and has artists: {String.Join(", ", video.Artists)}.");
-                default:
-                    return Ok($"Unknown format {result.Type}");
-            }
-        }
+        
         
         [HttpGet("all")]
         public async Task<IActionResult> GetAllFile( string bucketName)

@@ -4,18 +4,20 @@ using Chat.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Chat.BackgroundService;
+namespace Chat.BackgroundService.Handlers;
 
-public class Consumer : Microsoft.Extensions.Hosting.BackgroundService
+public class MessageSentHandler : Microsoft.Extensions.Hosting.BackgroundService
 {
     private IConnection _connection;
     private IModel _channel;
     private ConnectionFactory _connectionFactory;
     private IMessageService _messageService;
+    private readonly string _queueName;
 
-    public Consumer(IMessageService messageService)
+    public MessageSentHandler(IMessageService messageService)
     {
         _messageService = messageService;
+        _queueName = "ChatApp.Messages";
     }
     
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -27,7 +29,7 @@ public class Consumer : Microsoft.Extensions.Hosting.BackgroundService
         
         _connection = _connectionFactory.CreateConnection();
         _channel = _connection.CreateModel();
-        _channel.QueueDeclare(queue: "ChatApp",
+        _channel.QueueDeclare(queue: _queueName,
             durable: false,
             exclusive: false,
             autoDelete: false,
@@ -52,7 +54,7 @@ public class Consumer : Microsoft.Extensions.Hosting.BackgroundService
             }
         };
 
-        _channel.BasicConsume(queue: "ChatApp", autoAck: true, consumer: consumer);
+        _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
 
         await Task.CompletedTask;
     }

@@ -8,7 +8,7 @@ namespace Chat.Interfaces;
 
 public interface IStorageService
 {
-    Task<S3ResponseDto> UploadFileAsync(S3Object obj);
+    Task<S3ResponseDto> UploadFileAsync(IFormFile file);
     Task<GetObjectResponse> DownloadFileAsync(string objKey, string bucketName);
     Task<List<Amazon.S3.Model.S3Object>> GetAllObjectFromBucketAsync(string bucketName);
     Task CreateBucketAsync(string name);

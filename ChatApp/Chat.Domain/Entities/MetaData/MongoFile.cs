@@ -12,5 +12,5 @@ public class MongoFile
     
     public DateTime Date { get; set; }
     
-    public object Data { get; set; }
+    public string Data { get; set; }
 }
