@@ -1,9 +1,10 @@
 version: '3.4'
 
 services:
-  chat.api:
+  server:
     build: 
-      dockerfile:  Dockerfile-Api
+      dockerfile:  dockerfile-api
+    container_name:  'server'
     ports:
       - '7043:80'
     restart: always
@@ -11,54 +12,59 @@ services:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
       ASPNETCORE_ENVIRONMENT: Development
     networks:
-      - chatapp
+      - chat-app
     depends_on:
+      - zenko
+      - mongo
       - rabbitmq
+      
+  client:
+    build: ./Chat.Api/ClientApp
+    container_name: 'client'
+    ports:
+      - '3000:3000'
+    networks:
+      - chat-app
 
-  background-service:
+
+  consumer:
     build: 
-      dockerfile:  Dockerfile-background
+      dockerfile:  dockerfile-background
+    container_name: 'consumer'
     environment:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
     ports:
       - "8043:80"
     networks:
-      - chatapp
+      - chat-app
     depends_on:
       - rabbitmq
 
-  react:
-    build: ./Chat.Api/Clientapp
-    ports:
-      - '3000:3000'
-    networks:
-      - chatapp
-  
   db:
     image: postgres:latest
+    container_name: db
     ports:
       - '5432:5433'
-    restart: always
-    container_name: db
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "admin"
       POSTGRES_DB: "messagedb"
     networks:
-      - chatapp
+      - chat-app
+
   zenko:
     image: zenko/cloudserver:latest
+    container_name: zenko
     environment:
       SCALITY_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
       SCALITY_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
       S3DATA: "multiple"
       S3BACKEND: "mem"
+      ENDPOINT: "zenko"
     ports:
       - '8000:8000'
-    restart: always
-    container_name: zenko
     networks:
-      - chatapp
+      - chat-app
     
   rabbitmq:
     image: rabbitmq
@@ -67,11 +73,11 @@ services:
       - 5672:5672
       - 15672:15672
     networks:
-      - chatapp
+      - chat-app
 
-  mongo_db:
+  mongo:
     image: mongo:latest
-    container_name: mongo_db
+    container_name: 'mongo'
     volumes:
       - ~/mongo-db:/data/db
     environment:
@@ -80,12 +86,13 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=mongo
     ports:
       - '27017:27017'
+
   redis:
-    container_name: redis
+    container_name: 'redis'
     image: redis
     ports:
       - '6379:6379'
         
 networks:
-  chatapp:
+  chat-app:
     driver: bridge
