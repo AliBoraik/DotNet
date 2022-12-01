@@ -12,4 +12,6 @@ public interface IStorageService
     Task<GetObjectResponse> DownloadFileAsync(string objKey, string bucketName);
     Task<List<Amazon.S3.Model.S3Object>> GetAllObjectFromBucketAsync(string bucketName);
     Task CreateBucketAsync(string name);
+
+    Task<ListBucketsResponse> GetAllBuckets();
 }

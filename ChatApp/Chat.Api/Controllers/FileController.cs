@@ -64,5 +64,11 @@ namespace Chat.Api.Controllers
             await _storageService.CreateBucketAsync(name);
             return Ok($"Bucket {name} created");
         }
+        
+        [HttpGet("bucket/all")]
+        public async Task<IActionResult> GetAllBuckets()
+        {
+            return Ok(await _storageService.GetAllBuckets());
+        }
     }
 }
