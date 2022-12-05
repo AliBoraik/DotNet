@@ -21,7 +21,7 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     {
         _cacheService = cacheService;
         _producer = producer;
-        _cacheService.ChangeDatabase(Database.Common);
+        //_cacheService.ChangeDatabase(Database.Common);
         _queueName = "ChatApp.File";
     }
     

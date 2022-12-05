@@ -1,8 +1,6 @@
-﻿using Amazon.Extensions.NETCore.Setup;
-using Amazon.Runtime;
+﻿
 using Amazon;
 using Amazon.S3;
-using Amazon.S3.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

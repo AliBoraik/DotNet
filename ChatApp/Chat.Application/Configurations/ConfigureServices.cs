@@ -16,6 +16,8 @@ public static class ConfigureServices
         services.AddTransient<IMessageService, MessageService>();
         services.AddTransient<IStorageService,StorageService>();
         services.AddTransient<ICacheService,CacheService>();
+        IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+        services.AddScoped(s => redis.GetDatabase());
 
         return services;
     }

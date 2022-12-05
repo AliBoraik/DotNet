@@ -8,24 +8,17 @@ namespace Chat.Application;
 
 public class CacheService : ICacheService
 {
-    private ConnectionMultiplexer _redis;
     private IDatabase _db;
 
-    public CacheService()
+    public CacheService(IDatabase db)
     {
-        var options = new ConfigurationOptions
-        {
-            AbortOnConnectFail = false,
-            EndPoints = { "localhost" }
-        };
-        _redis = ConnectionMultiplexer.Connect(options);
-        _db = _redis.GetDatabase((int) Database.Common);
+        _db = db;
     }
 
-    public void ChangeDatabase(Database db)
+    /*public void ChangeDatabase(Database db)
     {
         _db = _redis.GetDatabase((int) db);
-    }
+    }*/
 
     public bool SetData(string key, string value)
     {

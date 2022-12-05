@@ -7,7 +7,6 @@ services:
     container_name:  'server'
     ports:
       - '7043:80'
-    restart: always
     environment:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
       ASPNETCORE_ENVIRONMENT: Development
