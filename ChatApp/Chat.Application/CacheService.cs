@@ -1,24 +1,17 @@
 ﻿using Chat.Domain.Metadata;
 using Chat.Interfaces;
 using StackExchange.Redis;
-using System.Text.Json;
-using Shared.Enums;
 
 namespace Chat.Application;
 
 public class CacheService : ICacheService
 {
-    private IDatabase _db;
+    private readonly IDatabase _db;
 
     public CacheService(IDatabase db)
     {
         _db = db;
     }
-
-    /*public void ChangeDatabase(Database db)
-    {
-        _db = _redis.GetDatabase((int) db);
-    }*/
 
     public bool SetData(string key, string value)
     {

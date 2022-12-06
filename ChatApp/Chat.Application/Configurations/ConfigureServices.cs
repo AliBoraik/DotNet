@@ -1,7 +1,4 @@
-﻿using Amazon.Extensions.NETCore.Setup;
-using Amazon.Runtime;
-using Amazon.S3;
-using Chat.Interfaces;
+﻿using Chat.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
@@ -16,7 +13,7 @@ public static class ConfigureServices
         services.AddTransient<IMessageService, MessageService>();
         services.AddTransient<IStorageService,StorageService>();
         services.AddTransient<ICacheService,CacheService>();
-        IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+        IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost,abortConnect=false");
         services.AddScoped(s => redis.GetDatabase());
 
         return services;

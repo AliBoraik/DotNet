@@ -17,7 +17,7 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     private readonly Producer _producer;
     private readonly string _queueName;
 
-    public FileUploadedHandler(IMessageService messageService, ICacheService cacheService, Producer producer)
+    public FileUploadedHandler(ICacheService cacheService, Producer producer)
     {
         _cacheService = cacheService;
         _producer = producer;

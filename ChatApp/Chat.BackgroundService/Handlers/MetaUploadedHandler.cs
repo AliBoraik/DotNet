@@ -17,7 +17,7 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     private readonly Producer _producer;
     private readonly string _queueName;
 
-    public MetaUploadedHandler(IMessageService messageService, ICacheService cacheService, Producer producer)
+    public MetaUploadedHandler(ICacheService cacheService, Producer producer)
     {
         _cacheService = cacheService;
         _producer = producer;
