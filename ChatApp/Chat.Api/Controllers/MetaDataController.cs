@@ -19,7 +19,7 @@ public class MetaDataController : Controller
     public MetaDataController(ICacheService cacheService, IMongoDbContext mongoDbContext, IRabbitMqProducer producer)
     {
         _cacheService = cacheService;
-        //_cacheService.ChangeDatabase(Database.Meta);
+        _cacheService.ChangeDatabase(Database.Meta);
         _mongoDbContext = mongoDbContext;
         _producer = producer;
     }

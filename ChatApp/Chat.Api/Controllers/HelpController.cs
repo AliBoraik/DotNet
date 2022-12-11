@@ -8,12 +8,12 @@ namespace Chat.Api.Controllers;
 [Route("api/helper")]
 public class HelpController : Controller
 {
-    private readonly ICacheService _cacheService;
+    private readonly ICacheService _cache;
 
     public HelpController(ICacheService cacheService)
     {
-        _cacheService = cacheService;
-        //_cacheService.ChangeDatabase(Database.Common);
+        _cache = cacheService;
+        _cache.ChangeDatabase(Database.Common);
     }
 
     [HttpGet("guid")]
@@ -22,10 +22,28 @@ public class HelpController : Controller
         return Ok(Guid.NewGuid());
     }
 
-    [HttpPost("cache")]
-    public IActionResult SetCache(string key, string value)
+    [HttpGet("cache")]
+    public IActionResult Get(string key)
     {
-        var result = _cacheService.SetData(key, value);
+        var result = _cache.GetData(key);
+        if (result == null)
+            return NotFound();
         return Ok(result);
+    }
+    
+    [HttpPost("cache")]
+    public IActionResult Set(string key, string value)
+    {
+        var result = _cache.SetData(key, value);
+        if (!result)
+            return NotFound();
+        return Ok(value);
+    }
+
+    [HttpPut("cache/increment")]
+    public IActionResult Increment(string key)
+    {
+        _cache.Increment(key);
+        return Ok();
     }
 }

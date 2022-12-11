@@ -22,7 +22,7 @@ namespace Chat.Api.Controllers
         public FileController(IStorageService storageService, ICacheService cacheService, IRabbitMqProducer producer)
         {
             _cacheService = cacheService;
-            //_cacheService.ChangeDatabase(Database.File);
+            _cacheService.ChangeDatabase(Database.File);
             _storageService = storageService;
             _producer = producer;
         }

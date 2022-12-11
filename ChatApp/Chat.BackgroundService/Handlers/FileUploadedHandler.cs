@@ -21,7 +21,7 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     {
         _cacheService = cacheService;
         _producer = producer;
-        //_cacheService.ChangeDatabase(Database.Common);
+        _cacheService.ChangeDatabase(Database.Common);
         _queueName = "ChatApp.File";
     }
     
@@ -52,7 +52,7 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<FileUploadMessage>(body);
 
-                _cacheService.IncrementAsync(message.RequestId.ToString());
+                _cacheService.Increment(message.RequestId.ToString());
                 var counter = _cacheService.GetData(message.RequestId.ToString());
                 
                 

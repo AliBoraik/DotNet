@@ -12,9 +12,7 @@ public static class ConfigureServices
         services.AddAws(configuration);
         services.AddTransient<IMessageService, MessageService>();
         services.AddTransient<IStorageService,StorageService>();
-        services.AddTransient<ICacheService,CacheService>();
-        IConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost,abortConnect=false");
-        services.AddScoped(s => redis.GetDatabase());
+        services.AddRedis(configuration);
 
         return services;
     }

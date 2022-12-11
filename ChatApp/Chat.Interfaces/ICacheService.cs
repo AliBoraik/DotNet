@@ -6,8 +6,8 @@ namespace Chat.Interfaces;
 
 public interface ICacheService
 {
+    void ChangeDatabase(Database db);
     bool SetData(string key, string value);
-    void IncrementAsync(string key);
     string? GetData(string key);
-    bool RemoveData(string key);
+    void Increment(string key);
 }
