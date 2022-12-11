@@ -47,11 +47,13 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
         var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += async (model, ea) =>
         {
+            Console.WriteLine("!!!!!!!!!GET INTO HANDLER!!!!!!!!!!!");
             try
             {
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<FileUploadMessage>(body);
-
+                
+                Console.WriteLine("!!!!!!!!!SHOULD INCREMENT!!!!!!!!!!!");
                 _cacheService.Increment(message.RequestId.ToString());
                 var counter = _cacheService.GetData(message.RequestId.ToString());
                 

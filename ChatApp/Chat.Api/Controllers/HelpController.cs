@@ -13,7 +13,6 @@ public class HelpController : Controller
     public HelpController(ICacheService cacheService)
     {
         _cache = cacheService;
-        _cache.ChangeDatabase(Database.Common);
     }
 
     [HttpGet("guid")]
@@ -23,8 +22,9 @@ public class HelpController : Controller
     }
 
     [HttpGet("cache")]
-    public IActionResult Get(string key)
+    public IActionResult Get(string key, Database database)
     {
+        _cache.ChangeDatabase(database);
         var result = _cache.GetData(key);
         if (result == null)
             return NotFound();

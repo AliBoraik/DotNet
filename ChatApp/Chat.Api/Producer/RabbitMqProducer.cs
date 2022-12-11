@@ -29,7 +29,7 @@ public class RabbitMqProducer: IRabbitMqProducer
                 var body = Encoding.UTF8.GetBytes(messageJson);
 
                 channel.BasicPublish(exchange: "",
-                    routingKey: "ChatApp",
+                    routingKey: queue,
                     basicProperties: null,
                     body: body);
                 Console.WriteLine($"Message sent: {messageJson}");
