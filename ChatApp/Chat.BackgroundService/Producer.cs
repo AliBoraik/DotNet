@@ -16,24 +16,25 @@ public class Producer
 
     public void SendMessage(DataUploadedMessage message)
     {
+        Console.WriteLine("!!!!!START SEND TO API!!!!!!");
         var factory = new ConnectionFactory() { HostName = "rabbitmq" };
-        using (var connection = factory.CreateConnection())
-        using (var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: _queueName,
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+        var connection = factory.CreateConnection();
+        using var channel = connection.CreateModel();
+        
+        channel.QueueDeclare(queue: _queueName,
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
 
-            var messageJson = JsonSerializer.Serialize(message);
+        var messageJson = JsonSerializer.Serialize(message);
             
-            var body = Encoding.UTF8.GetBytes(messageJson);
+        var body = Encoding.UTF8.GetBytes(messageJson);
 
-            channel.BasicPublish(exchange: "",
-                routingKey: _queueName,
-                basicProperties: null,
-                body: body);
-        }
+        channel.BasicPublish(exchange: "",
+            routingKey: _queueName,
+            basicProperties: null,
+            body: body);
+        Console.WriteLine("!!!!!SEND TO API!!!!!!");
     }
 }

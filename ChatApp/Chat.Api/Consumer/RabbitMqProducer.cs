@@ -8,20 +8,28 @@ using Shared.Enums;
 
 namespace Chat.Api.Consumer;
 
-public class RabbitMqProducer : Microsoft.Extensions.Hosting.BackgroundService
+public class RabbitMqConsumer : BackgroundService
 {
     private IConnection _connection;
     private IModel _channel;
     private ConnectionFactory _connectionFactory;
     private ICacheService _cacheService;
+    private IStorageService _storageService;
     private readonly IMongoDbContext _mongoDb;
     private readonly string _queueName;
 
-    public RabbitMqProducer(IMessageService messageService, ICacheService cacheService, IMongoDbContext mongoDb)
+    public RabbitMqConsumer(ICacheService cacheService, IMongoDbContext mongoDb, IStorageService storageService)
     {
         _cacheService = cacheService;
         _mongoDb = mongoDb;
+        _storageService = storageService;
         _queueName = "ChatApp.DataUploaded";
+    }
+    
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await base.StopAsync(cancellationToken);
+        _connection.Close();
     }
     
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -48,17 +56,19 @@ public class RabbitMqProducer : Microsoft.Extensions.Hosting.BackgroundService
         {
             try
             {
+                Console.WriteLine("!!!!!!GET COUNTER == 2!!!!!!!!!!!!");
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<DataUploadedMessage>(body);
                 
-                //_cacheService.ChangeDatabase(Database.Meta);
+                _cacheService.ChangeDatabase(Database.Meta);
                 var metaJson = _cacheService.GetData(message.RequestId.ToString());
-                var meta = JsonSerializer.Deserialize<MongoFile>(metaJson);
-                await _mongoDb.CreateAsync(meta);
+                //var meta = JsonSerializer.Deserialize<MongoFile>(metaJson);
+                //await _mongoDb.CreateAsync(meta);
                 
-                //_cacheService.ChangeDatabase(Database.File);
+                _cacheService.ChangeDatabase(Database.File);
                 var file = _cacheService.GetData(message.RequestId.ToString());
-                //todo: move to persist bucket
+                Console.WriteLine($"!!!!!FILE : {file} !!!!!!!!!");
+                await _storageService.MoveToPersistent(file, cancellationToken);
             }
             catch (Exception exception)
             {

@@ -1,8 +1,7 @@
+using Chat.Api.Consumer;
 using Chat.Api.Hubs;
 using Chat.Api.Producer;
-using Chat.Application;
 using Chat.Application.Configurations;
-using Chat.Infrastructure;
 using Chat.Infrastructure.Configurations;
 
 
@@ -18,6 +17,7 @@ builder.Services.AddScoped<IRabbitMqProducer, RabbitMqProducer>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddHostedService<RabbitMqConsumer>();
 
 builder.Services.AddCors(options =>
 {

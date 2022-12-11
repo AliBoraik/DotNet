@@ -29,7 +29,7 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     {
         _connectionFactory = new ConnectionFactory
         {
-            HostName = "rabbitmq",
+            HostName = "rabbitmq", 
         };
         
         _connection = _connectionFactory.CreateConnection();
@@ -57,6 +57,7 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
                 
                 if (counter == "2")
                 {
+                    Console.WriteLine("!!!!COUNTER ==== 2!!!!!!");
                     _producer.SendMessage(new DataUploadedMessage(){RequestId = message.RequestId});
                 }
             }

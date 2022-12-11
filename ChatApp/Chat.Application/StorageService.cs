@@ -90,4 +90,29 @@ public class StorageService : IStorageService
     {
         return await _amazonS3.ListBucketsAsync();
     }
+
+    public async Task MoveToPersistent(string filename, CancellationToken cancellationToken)
+    {
+        var request = new GetObjectRequest
+        {
+            BucketName = "temp",
+            Key = filename
+        };
+
+        var file = await _amazonS3.GetObjectAsync(request, cancellationToken);
+        await using var memStream = new MemoryStream();
+        await file.ResponseStream.CopyToAsync(memStream, cancellationToken);
+        memStream.Seek(0, SeekOrigin.Begin);
+
+        var uploadRequest = new TransferUtilityUploadRequest
+        {
+            InputStream = memStream,
+            Key = file.Key,
+            BucketName = "persist",
+            CannedACL = S3CannedACL.PublicRead
+        };
+
+        var fileTransferUtility = new TransferUtility(_amazonS3);
+        await fileTransferUtility.UploadAsync(uploadRequest, cancellationToken);
+    }
 }

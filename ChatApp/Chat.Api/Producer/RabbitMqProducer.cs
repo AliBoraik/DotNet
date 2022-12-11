@@ -32,7 +32,6 @@ public class RabbitMqProducer: IRabbitMqProducer
                     routingKey: queue,
                     basicProperties: null,
                     body: body);
-                Console.WriteLine($"Message sent: {messageJson}");
             }
     }
 }
