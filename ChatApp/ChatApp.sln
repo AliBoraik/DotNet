@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.BackgroundService", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{F747EE81-2435-438E-8B93-6F7679CFFF06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{477DC8AD-D797-4A45-800A-F20C538DD005}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{F747EE81-2435-438E-8B93-6F7679CFFF06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F747EE81-2435-438E-8B93-6F7679CFFF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F747EE81-2435-438E-8B93-6F7679CFFF06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{477DC8AD-D797-4A45-800A-F20C538DD005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{477DC8AD-D797-4A45-800A-F20C538DD005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{477DC8AD-D797-4A45-800A-F20C538DD005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{477DC8AD-D797-4A45-800A-F20C538DD005}.Release|Any CPU.Build.0 = Release|Any CPU		
 	EndGlobalSection
 EndGlobal

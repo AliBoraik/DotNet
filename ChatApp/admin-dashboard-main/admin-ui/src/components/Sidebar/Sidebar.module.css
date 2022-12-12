@@ -1,0 +1,15 @@
+.button{
+    height: 200px;
+    overflow: hidden;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+    width: 240px;
+    /*height: 3em;*/
+}
+
+.link:active{
+    color: black;
+}

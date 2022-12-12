@@ -1,0 +1,23 @@
+button.back {
+    position: absolute;
+    left: 255px;
+    padding: 15px;
+    width: 100px;
+    margin: 15px 15px;
+    background-color: #e0e0e0;
+    border: none;
+}
+
+button.back:hover {
+    background-color: #bdbdbd;
+}
+
+.form {
+    margin-top: 70px;
+}
+
+.spinner {
+    width: 1000px;
+    height: 100px;
+    margin-left: 100px;
+}
