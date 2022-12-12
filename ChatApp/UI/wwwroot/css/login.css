@@ -1,0 +1,350 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: black;
+}
+
+/* signup */
+.form-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.form-logo {
+    width: 160px;
+    height: 100px;
+    margin: 14px;
+}
+
+.signup-text-heading {
+    font-size: 35px;
+    font-weight: 795;
+    padding: 20px;
+    word-spacing: -3px;
+}
+
+.facebook-form-button {
+    display: inline-flex;
+    justify-content: center;
+    background-color: #4267B2;
+    padding: 10px;
+    border-radius: 30px;
+    width: 440px;
+    height: 50px;
+    text-align: center;
+}
+
+.facebook-form-logo {
+    width: 30px;
+    height: 30px;
+    padding: 1px;
+    margin-right: 6px;
+    border-radius: 15px;
+}
+
+.facebook-form-text {
+    margin-left: 7px;
+    margin-top: 3px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+}
+
+.facebook-form-button:hover {
+    transform: scale(1.03);
+    background-color: #2755b3;
+    font-weight: bolder;
+    cursor: default;
+}
+
+.google-form-button {
+    display: inline-flex;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 30px;
+    width: 440px;
+    height: 50px;
+    text-align: center;
+    border: solid 1px black;
+}
+
+.google-form-logo {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    margin-right: 6px;
+    border-radius: 15px;
+}
+
+.google-form-text {
+    margin-left: 7px;
+    margin-top: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: grey;
+}
+
+.google-form-button:hover {
+    transform: scale(1.03);
+    font-weight: bolder;
+    cursor: default;
+}
+
+.line-wrapper {
+    margin: 0 auto;
+    width: 35%;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+}
+
+.line span {
+    padding: 17px;
+    font-size: 18px;
+    font-weight: 600;
+    color: inherit;
+}
+
+.line:before,
+.line:after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+}
+
+.signup-text-under {
+    font-size: 17px;
+    font-weight: bolder;
+}
+
+.form {
+    display: block;
+    margin-left: 15px
+}
+
+.form-field input, select {
+    width: 500px;
+    height: 50px;
+    padding: 14px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 17px;
+}
+
+.form-field input:focus, select:focus {
+    border: 3px solid gray;
+}
+
+.form-field select:hover, input:hover {
+    border-color: black;
+}
+
+.form-field input::placeholder {
+    font-size: 18px;
+}
+
+.form-field label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 25px;
+    margin-bottom: 8px;
+}
+
+.signup-mention {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.signup-date {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.signup-date #day {
+    width: 100px;
+}
+
+.signup-date #month {
+    appearance: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari & Chrome */
+    padding-right: 30px;
+    background-image: url("../img/arrow-down.png");
+    background-repeat: no-repeat;
+    background-position: 210px;
+    background-size: 15px;
+    width: 250px;
+    color: grey;
+}
+
+.signup-date #year {
+    width: 100px;
+}
+
+.signup-date input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Chrome, IE etc */
+}
+
+.signup-date input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.form-radio {
+    display:inline-flex;
+}
+
+.form-radio label {
+    all: revert;
+    margin-left: 10px;
+    margin-right: 18px;
+    font-size: 16px;
+}
+.form-radio input[type=radio] {
+    all: revert;
+    margin-top: 4px;
+    width: 15px;
+    height: 15px;
+}
+
+.form-radio input[type=radio]:checked {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    border-radius: 100%;
+    border: 4px solid green;
+}
+
+.form-agreement {
+    font-size: 15px;
+}
+
+.signup-agreement {
+    margin-top: 30px;
+}
+
+.form-agreement input[type=checkbox] {
+    margin-right: 10px;
+    width: 20px;
+    height: 15px;
+}
+
+.simple-text {
+    margin-left: 32px;
+}
+
+.form a {
+    color: #1fcf5d;
+}
+
+.form a:hover {
+    color: #20e666;
+}
+
+.form-button {
+    background-color: #1fcf5d;
+    border-radius: 25px;
+    border: 0;
+    font-size: 15px;
+    font-weight: bolder;
+    width: 130px;
+    height: 48px;
+}
+
+.form-button:hover {
+    background-color: #20e364;
+    transform: scale(1.05);
+}
+
+.signup-button {
+    margin-top: 14px;
+    margin-left: 195px
+}
+
+.signup-suggestion {
+    margin-top: 15px;
+    margin-left: 170px
+}
+
+/* login */
+.login-small {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.login-agreement {
+    margin-top: 10px;
+}
+
+.login-agreement span {
+    font-size: 15px;
+}
+
+#forgot-text {
+    position: relative;
+    top: 8px;
+    margin-bottom: 5px;
+}
+
+.login-button {
+    position: relative;
+    margin-left: 370px;
+    top: -30px;
+}
+
+.login-button:hover {
+    cursor: default;
+}
+
+
+#line-under-form {
+    height: 1px;
+    border:none;
+    color:#333;
+    background-color:#333;
+    position: relative;
+    top: -20px;
+}
+
+#account-question {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 150px;
+}
+
+.spotify-form-button {
+    justify-content: center;
+    padding: 10px;
+    width: 500px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 30px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+.spotify-form-button:hover {
+    cursor: default;
+    border-color: black;
+}
+
+.spotify-form-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: gray;
+    letter-spacing: 2px;
+}

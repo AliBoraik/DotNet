@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "MainLayout";
+    ViewData["Title"] = "User";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/play-button.css" asp-append-version="true"/>
+</head>
+<div class="content-spacing">
+    <div class="user-header">
+        <div>&nbsp;</div>
+        <div class="user-info">
+            <div class="user-img"></div>
+            <div class="block-info">
+                <div class="type">PROFILE</div>
+                <div class="user-name">Salavat Gilyazetdinov</div>
+                <div class="short-content">1 Public Playlists</div>
+            </div>
+        </div>
+    </div> 
+    <div class="user-body">
+        <div class="user-interaction">
+            <div class="edit-button">EDIT PROFILE</div>
+        </div>
+        <div class="user-releases">
+            <div class="content-header">
+                <div class="content-block">
+                    <a class="content-type">Public Playlists</a>
+                </div>
+                <a href="#" class="see-all">SEE ALL</a>
+            </div>
+            <div class="content-body" id="playlists"></div>
+        </div>
+    </div>
+</div>

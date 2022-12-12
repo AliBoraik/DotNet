@@ -1,0 +1,127 @@
+﻿<div class="container mt-5 ms-4" >
+    <h1><b>Edit your profile</b></h1>
+    <div class="form">
+        <form id="edit-profile">
+            <div class="form-field">
+                <label for="email">Email</label><br/>
+                <input value="" type="email" required id="email" autofocus="autofocus"/>
+            </div>
+            <div class="form-field">
+                <label for="username">Username</label><br/>
+                <input value="" type="text" required id="username" />
+            </div>
+
+            <div class="form-field">
+                <div class="form-row-3">
+                    <label for="day">day:</label><br/>
+                    <input type="number" min="1" max="31" required minlength="8" id="day"/>
+                    
+                    <label for="month">month:</label><br/>
+                    <input type="number" min="1" max="12" required minlength="8" id="month"/>
+                    
+                    <label for="year">year:</label><br/>
+                    <input type="number" min="1900" max="3000" required minlength="8" id="year"/>
+                </div>
+            </div>
+            
+            <div class="form-field" style="width: 42%">
+                <label>Country</label>
+                <br/>
+                <select id="country">
+                    <option value="0">Russia</option>
+                    <option value="1">Ukraine</option>
+                    <option value="2">Usa</option>
+                    <option value="3">Greece</option>
+                </select>
+            </div>
+            <hr style="width: 28%; margin-top: 3%"/>
+            <div class="flex-lg-row">
+                <button type="submit" class="form-button" id="sendButton">SAVE PROFILE</button>
+                <button type="reset" class="cancel-form-button" id="reset">
+                    <div class="spotify-form-text">X</div>
+                </button>
+            </div>
+        </form>
+    </div>
+    <br/>
+</div>
+<script>
+window.onload = async function() {
+    await loadData();
+};
+
+document.getElementById('edit-profile').addEventListener('submit', async event => {
+    event.preventDefault();
+    await getClaims().then( async claims => {
+            const changeProfileUrl = "https://localhost:7030/api/profile/change";
+            const myData = {
+                userId: claims['id'],
+                email: event.target['email'].value,
+                username: event.target['username'].value,
+                country: event.target['country'].value,
+                birthday: event.target['year'].value + '.' + event.target['month'].value + '.' + event.target['day'].value
+            };
+            try {
+                await putData(changeProfileUrl, myData)
+                    .then(async (data) => {
+                        console.log(data);
+                        await loadData();
+                    });
+            }
+            catch (error){
+                console.log('fail for changing profile');
+                await loadData()
+                console.log(myData)
+                //window.location.reload();
+            }
+            //await loadData()
+            //console.log(myData);
+    });
+});
+
+async function loadData(){
+    let username = document.getElementById("username")
+    let email = document.getElementById("email")
+    let day = document.getElementById("day")
+    let month = document.getElementById("month")
+    let year = document.getElementById("year")
+    let country = document.getElementById("country")
+    await getClaims().then(async claims =>{
+        await fetch(`${api}/profile/getProfile?userId=${claims['id']}`, {
+                headers : {
+                    'Authorization': `Bearer ${getToken()}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let currentData = data["birthday"].split('-');
+                //console.log(currentData)
+                
+                username.value = data["username"]
+                email.value = data["email"]
+                day.value = currentData[2];
+                month.value = currentData[1].replace('0','');
+                year.value = currentData[0]
+                country.value = data["country"]
+            })
+            .catch(console.log)
+    })
+}
+    
+async function putData (url, data) {
+    const response = await fetch( url, {
+        method: 'PUT',
+        headers : {
+            'Content-Type': 'application/json'
+            //'Authorization': `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (response.status > 300){
+        throw new Error();
+    }
+
+    return await response.json();
+}
+</script>

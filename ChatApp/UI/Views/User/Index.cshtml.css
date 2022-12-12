@@ -1,0 +1,131 @@
+.content-spacing {
+    color: white;
+    overflow-y: hidden;
+}
+
+.user-header {
+    height: 320px;
+    background: linear-gradient( rgb(	105,105,105), rgb(40,40,40));
+    min-height: 50px;
+}
+
+.user-info {
+    display: inline-flex;
+    margin-top: 70px;
+    margin-left: 25px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.verified-icon:before {
+    display: inline-block;
+    content: "";
+    background-image: url("./img/verified-icon.png");
+    background-size: 23px 23px;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 24px;
+}
+
+.user-name {
+    font-weight: bolder;
+    font-size: 70px;
+    letter-spacing: -4px;
+    white-space: nowrap;
+}
+
+.user-interaction {
+    display: inline-flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.user-name:hover {
+    cursor: default;
+}
+
+.content-header {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 1600px;
+}
+
+.content-header a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.content-type {
+    color: white;
+    font-size: 25px;
+    cursor: default;
+}
+
+.see-all {
+    color: gray;
+    font-size: 12px;
+}
+
+.content-body {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-left: 28px;
+    margin-top: 10px;
+}
+
+.edit-button {
+    position: relative;
+    top: 25px;
+    left: 29px;
+    width: 120px;
+    height: 35px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding-left: 16px;
+    padding-top: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: default;
+}
+
+.edit-button:hover {
+    border-color: white;
+}
+
+.user-img {
+    background-image: url("./img/TESTS-ARTIST-ALBUM.jpg");
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 10px 10px 30px #282825;
+}
+
+.type {
+    font-size: 11px;
+    font-weight: bolder;
+}
+
+.short-content {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.block-info {
+    font-weight: bold;
+    align-items: center;
+    position: relative;
+    top: 30px
+}
+
+.content-mention {
+    color: gray;
+    font-size: 13px;
+    font-weight: bold;
+}

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Spotify</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/card.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/UI.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/loading.css" asp-append-version="true"/>
+</head>
+<body>
+<div class="page">
+    @{await Html.RenderPartialAsync("MainPartial/Sidebar");}
+    <div class="layout_content">
+        <main role="main" class="pb-3">
+            <div class="header-overlay"></div>
+            <div class="header">
+                <div class=history-nav>
+                    <a class="back-history" >
+                        <div class="arrow-nav">
+                            <i class="bi-caret-left-fill"></i>
+                        </div>
+                    </a>
+                    <a class="forward-history">
+                        <div class="arrow-nav">
+                            <i class="bi-caret-right-fill"></i>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="search-bar">
+                    <i class="bi-search"></i>
+                    <input type="text" class="search" />
+                </div> @*show on search page*@
+                
+                <div class="flex-grow-1"></div>
+                <div class="dropdown-container">
+                    <div class="dropbtn">
+                        <img class="profile-img" src="/img/TESTS-ARTIST-BACKGROUND.jpg" />
+                        <p class="usernameDrop">/</p>
+                        <i class="bi-caret-down-fill dropIco profile-arrow"></i>
+                    </div>
+                    <div id="dropdown" class="dropdown-content">
+                        <a href="/Account/Overview">Account</a>
+                        <a href="/User/Index">Profile</a>
+                        <a id="logout" href="/Account/Login">Logout</a>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="renderBody">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+    <div class="player_section">
+        @{ await Html.RenderPartialAsync("MainPartial/Playbar"); }
+    </div>
+</div>
+<script src="~/js/getData.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/consts.js"></script>
+<script src="~/js/toggleLoading.js"></script>
+<script src="~/js/MainLayoutScript.js"></script>
+<script src="~/js/musicplayer/PlaybarScript.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/cards/playlist-card.js"></script>
+<script src="~/js/cards/song-card.js"></script>
+<script src="~/js/cards/profile-card.js"></script>
+
+<script src="~/js/getToken.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

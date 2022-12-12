@@ -1,0 +1,65 @@
+﻿@model string?
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true"/>
+    <title>Log in - Spotify</title>
+</head>
+<div class="form-container">
+    <img class="form-logo" src="~/img/full-logo.svg"/>
+    <p style="font-weight: bold; font-size: 15px">To continue, log in to Spotify.</p>
+    <div class="facebook-form-button">
+        <img class="facebook-form-logo login-small" src="~/img/facebook-logo.svg">
+        <div class="facebook-form-text login-small">CONTINUE WITH FACEBOOK</div>
+    </div>
+    <br>
+    <div class="google-form-button">
+        <img class="google-form-logo" src="~/img/google-logo.svg"/>
+        <div class="google-form-text">
+            @{
+                var returnUrl = "https://localhost:7057/";
+                var path = $"https://localhost:7030/api/external_login/signin/google?returnUrl={returnUrl}";
+            }
+            <a id="google-link" href="@path">
+                CONTINUE WITH GOOGLE
+            </a>
+        </div>
+    </div>
+    <div class="line-wrapper">
+        <div class="line">
+            <span>or</span>
+        </div>
+    </div>
+    <div>
+        @Model
+    </div>
+    <div class="form">
+        <form id="login" asp-controller="Account" asp-action="LogIn" method="post">
+            <div class="form-field">
+                <label for="email">Email address or username</label><br/>
+                <input name="email" type="email" placeholder="Email address or username" required="You need to enter your email."/>
+            </div>
+            <div class="form-field">
+                <label for="password">Password</label><br/>
+                <input name="password" type="password" placeholder="Password." required="You need to enter your email."/>
+            </div>
+            <h7 id="forgot-text">Forgot your password?</h7>
+            <div class="form-agreement login-agreement">
+                <input name="remember" type="checkbox"/>
+                <span>Remember me</span>
+            </div>
+            <button type="submit" class="form-button login-button">LOG IN</button>
+            <hr id="line-under-form"/>
+            <h5 id="account-question">Don't have an account?</h5>
+            <div class="spotify-form-button">
+                <a href="/Account/Signup" class="spotify-form-text">SIGN UP FOR SPOTIFY</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
