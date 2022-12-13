@@ -1,7 +1,10 @@
-FROM node:13.12.0-alpine
-WORKDIR /core
-ENV PATH /app/node_modules/.bin:$PATH
+# Node 16 base image
+FROM node:16-alpine 
+WORKDIR /app
 COPY . .
-RUN yarn install
+RUN yarn install  
+# Build the app
 RUN yarn run build
-CMD ["yarn", "start"]
+ENV NODE_ENV production
+EXPOSE 2000
+CMD [ "yarn", "start"]

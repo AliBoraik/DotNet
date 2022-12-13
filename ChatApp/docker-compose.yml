@@ -21,7 +21,7 @@ services:
     build: ./Chat.Api/ClientApp
     container_name: 'client'
     ports:
-      - '3000:3000'
+      - '2000:2000'
 #    networks:
 #      - chat-app
 
@@ -101,6 +101,11 @@ services:
     container_name: 'spotify-clone'
     ports:
       - '5057:80'
+  admin-ui:
+    build: admin-dashboard-main/admin-ui
+    container_name: 'admin-ui'
+    ports:
+      - '3000:3000'
 #networks:
 #  chat-app:
 #    driver: bridge
