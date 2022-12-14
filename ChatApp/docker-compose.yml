@@ -40,7 +40,8 @@ services:
       - rabbitmq
 
   db:
-    image: postgres:latest
+    build: 
+      dockerfile: ./DataBase/dockerfile-db
     container_name: db
     ports:
       - '5432:5433'
@@ -106,6 +107,12 @@ services:
     container_name: 'admin-ui'
     ports:
       - '3000:3000'
+  spotify-api:
+    build:
+      dockerfile: db_web_api-main/src/DB/dockerfile-spotify-clone
+    container_name: 'spotify-api'
+    ports:
+      - '5030:80'   
 #networks:
 #  chat-app:
 #    driver: bridge
