@@ -20,8 +20,8 @@
         <img class="google-form-logo" src="~/img/google-logo.svg"/>
         <div class="google-form-text">
             @{
-                var returnUrl = "https://localhost:7057/";
-                var path = $"https://localhost:7030/api/external_login/signin/google?returnUrl={returnUrl}";
+                var returnUrl = "http://localhost:5030/";
+                var path = $"http://localhost:5030/api/external_login/signin/google?returnUrl={returnUrl}";
             }
             <a id="google-link" href="@path">
                 CONTINUE WITH GOOGLE

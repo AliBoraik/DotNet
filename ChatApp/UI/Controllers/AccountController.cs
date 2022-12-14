@@ -51,7 +51,7 @@ public class AccountController : Controller
         };
         var content = new FormUrlEncodedContent(values);
         var res = client
-            .PostAsync($"https://localhost:7030/api/auth/login", content).Result;
+            .PostAsync($"http://localhost:5030/api/auth/login", content).Result;
 
         if (res.StatusCode == HttpStatusCode.OK)
         {
@@ -109,7 +109,7 @@ public class AccountController : Controller
         };
         var content = new FormUrlEncodedContent(values);
         var res = client
-            .PostAsync($"https://localhost:7030/api/auth/signup", content).Result;
+            .PostAsync($"http://localhost:5030/api/auth/signup", content).Result;
         
         if (res.StatusCode == HttpStatusCode.OK)
         {

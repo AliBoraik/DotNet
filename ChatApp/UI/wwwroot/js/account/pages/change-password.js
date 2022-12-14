@@ -1,7 +1,7 @@
 document.getElementById('change-password').addEventListener("submit", async function(event) {
     event.preventDefault();
     await getClaims().then( async claims => {
-        const changePasswordUrl = "https://localhost:7030/api/profile/password/change";
+        const changePasswordUrl = "http://localhost:5030/api/profile/password/change";
         const changeData = {
             userId: claims['id'],
             oldPassword: event.target['password'].value,

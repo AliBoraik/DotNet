@@ -1,4 +1,4 @@
-﻿const api = "https://localhost:7030/api";
+﻿const api = "http://localhost:5030/api";
 
 const countries = ["Russia", "Ukraine", "Usa", "Greece"];
 

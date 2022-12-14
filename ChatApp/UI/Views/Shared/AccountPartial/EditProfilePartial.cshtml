@@ -53,7 +53,7 @@ window.onload = async function() {
 document.getElementById('edit-profile').addEventListener('submit', async event => {
     event.preventDefault();
     await getClaims().then( async claims => {
-            const changeProfileUrl = "https://localhost:7030/api/profile/change";
+            const changeProfileUrl = "http://localhost:5030/api/profile/change";
             const myData = {
                 userId: claims['id'],
                 email: event.target['email'].value,
