@@ -80,22 +80,26 @@ services:
     image: 'redis:latest'
     ports:
       - '6379:6379'
-  admin-api:
-    build: ./admin-dashboard-main/admin-api
-    container_name: 'admin-api'
-    ports:
-      - '8080:8080'
+
+#  admin-api:
+#    build: ./admin-dashboard-main/admin-api
+#    container_name: 'admin-api'
+#    ports:
+#      - '8080:8080'
+  
   spotify-clone:
     build:
       dockerfile: UI/dockerfile-spotify-clone
     container_name: 'spotify-clone'
     ports:
       - '5057:80'
-  admin-ui:
-    build: admin-dashboard-main/admin-ui
-    container_name: 'admin-ui'
-    ports:
-      - '3000:3000'
+ 
+#  admin-ui:
+#    build: admin-dashboard-main/admin-ui
+#    container_name: 'admin-ui'
+#    ports:
+#      - '3000:3000'
+  
   spotify-api:
     build:
       dockerfile: db_web_api-main/src/DB/dockerfile-spotify-clone

@@ -1,26 +1,43 @@
-CREATE SEQUENCE IF NOT EXISTS public."Messages_Id_seq";
-CREATE TABLE IF NOT EXISTS public."Messages"
+create table if not exists "__EFMigrationsHistory"
 (
-    "Id" integer NOT NULL DEFAULT nextval('"Messages_Id_seq"'::regclass),
-    "User" text COLLATE pg_catalog."default" NOT NULL,
-    "MessageText" text COLLATE pg_catalog."default" NOT NULL,
-    "MessageDate" timestamp with time zone NOT NULL,
-    CONSTRAINT "PK_Messages" PRIMARY KEY ("Id")
+    "MigrationId"    varchar(150) not null
+    constraint "PK___EFMigrationsHistory"
+    primary key,
+    "ProductVersion" varchar(32)  not null
+    );
+
+alter table "__EFMigrationsHistory"
+    owner to postgres;
+
+create table if not exists "Chats"
+(
+    "Id"           uuid                  not null
+    constraint "PK_Chats"
+    primary key,
+    "ClientId"     text                  not null,
+    "AdminId"      text,
+    "IsProcessing" boolean default false not null
 );
 
-ALTER TABLE IF EXISTS public."Messages"
-    OWNER to postgres;
+alter table "Chats"
+    owner to postgres;
 
-CREATE SEQUENCE IF NOT EXISTS public."Messages_Id_seq"
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY "Messages"."Id";
+create table if not exists "Messages"
+(
+    "Id"          uuid    not null
+    constraint "PK_Messages"
+    primary key,
+    "Username"    text    not null,
+    "MessageData" text    not null,
+    "MessageType" integer not null,
+    "ChatId"      uuid
+    constraint "FK_Messages_Chats_ChatId"
+    references "Chats"
+);
 
-ALTER SEQUENCE public."Messages_Id_seq"
-    OWNER TO postgres;
+alter table "Messages"
+    owner to postgres;
 
-insert into "Messages" ("Id", "User", "MessageText", "MessageDate")
-values (1,'Salavat','hi','2022-12-31');
+create index if not exists "IX_Messages_ChatId"
+    on "Messages" ("ChatId");
+

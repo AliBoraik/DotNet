@@ -11,6 +11,7 @@ public static class ConfigureServices
     {
         services.AddAws(configuration);
         services.AddTransient<IMessageService, MessageService>();
+        services.AddTransient<IChatService, ChatService>();
         services.AddTransient<IStorageService,StorageService>();
         services.AddRedis(configuration);
 
