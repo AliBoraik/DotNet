@@ -11,6 +11,7 @@ import CreatePlaylist from "./pages/CreatePlaylist/CreatePlaylist";
 import Playlist from "./pages/Playlist/Playlist";
 import ErrorPage from "./pages/ErrorPage";
 import Chats from "./pages/Chats";
+import Chat from "./pages/Chat/Chat";
 
 const appTheme = createTheme({
     palette: {
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/Playlist/:id" element={<Playlist/>}/>
                     <Route path="/Playlist/:idP/song/:idS" element={<Playlist/>}/>
                     <Route path="/Chats" element={<Chats />}/>
+                    <Route path="/Chat/:id" element={<Chat />}/>
                 </Route>
             </Routes>
         </div>
