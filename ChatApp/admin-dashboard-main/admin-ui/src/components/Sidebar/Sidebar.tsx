@@ -71,9 +71,14 @@ const Sidebar = () => {
                                 <Typography variant={"inherit"} sx={{mt: 1}}>Users</Typography>
                             </Link>
                         </ToggleButton>
-                        <ToggleButton sx={{p: 0, height: 50}} value="bottom" aria-label="bottom aligned">
+                        <ToggleButton sx={{p: 0, height: 50}} value="center" aria-label="center aligned">
                             <Link className={styles.link} to="/Content">
                                 <Typography variant={"inherit"} sx={{mt: 1}}>Content</Typography>
+                            </Link>
+                        </ToggleButton>
+                        <ToggleButton sx={{p: 0, height: 50}} value="bottom" aria-label="bottom aligned">
+                            <Link className={styles.link} to="/Chats">
+                                <Typography variant={"inherit"} sx={{mt: 1}}>Chats</Typography>
                             </Link>
                         </ToggleButton>
                     </StyledToggleButtonGroup>
