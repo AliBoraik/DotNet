@@ -116,10 +116,10 @@ const Chats = () => {
                     <StyledTableCell>
                         {chat.name}
                     </StyledTableCell>
-                    <StyledTableCell sx={{width: 2}}>
+                    <StyledTableCell width="120px">
                         <Link
                             to={`http://localhost:3000/?mod=user&chat=${chat.id}`}
-                            style={{color: "grey", textDecoration: "none"}}
+                            style={{color: "#1475c2", textDecoration: "none"}}
                         >
                             Take to work
                         </Link>
@@ -170,7 +170,7 @@ const Chats = () => {
             <Paper elevation={0} sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 550 }}>
                     <Table
-                        sx={{ minWidth: 550, maxWidth: "calc(50% - 250px)", marginLeft: "250px" }}
+                        sx={{ minWidth: 550, maxWidth: "calc(100% - 300px)", marginLeft: "250px" }}
                         size="small"
                         stickyHeader
                     >
@@ -180,12 +180,13 @@ const Chats = () => {
                                 <TableCell>ID</TableCell>
                                 <TableCell>Name</TableCell>
                                 <TableCell sx={{width: 2}}/>
+                                <TableCell sx={{width: 2}}/>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {renderList}
                             <TableRow>
-                                <TableCell colSpan={4} >
+                                <TableCell colSpan={5} >
                                     {loadMore}
                                 </TableCell>
                             </TableRow>
