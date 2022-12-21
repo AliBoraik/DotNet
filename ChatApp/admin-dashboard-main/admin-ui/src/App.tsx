@@ -1,6 +1,6 @@
 import React from 'react';
-import  { Route, Routes } from "react-router-dom";
-import Home from "./pages/Users";
+import { Route, Routes } from "react-router-dom";
+import Users from "./pages/Users";
 import Content from "./pages/Content";
 import { Login } from './pages/Login/Login'
 import ProtectedRoutes from "./components/ProtectedRoutes";
@@ -30,9 +30,9 @@ function App() {
             <Routes>
                 <Route path="/Login" element={<Login/>}/>
                 <Route element={<ProtectedRoutes/>}>
-                    <Route path="/Users" element={<Home/>}/>
+                    <Route path="/Users" element={<Users/>}/>
                     <Route path="/404" element={<ErrorPage/>}/>
-                    <Route path="/" element={<Home/>}/>
+                    <Route path="/" element={<Users/>}/>
                     <Route path="/Content" element={<Content/>}/>
                     <Route path="/User/:id" element={<User/>}/>
                     <Route path="/CreatePlaylist" element={<CreatePlaylist/>}/>
