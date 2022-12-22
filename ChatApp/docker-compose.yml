@@ -15,6 +15,7 @@ services:
       - zenko
       - mongo
       - rabbitmq
+    restart: on-failure   
       
   client:
     build: ./Chat.Api/ClientApp
@@ -30,6 +31,7 @@ services:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
     ports:
       - "8043:80"
+    restart: on-failure   
 
     depends_on:
       - rabbitmq
@@ -44,6 +46,7 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "admin"
       POSTGRES_DB: "messagedb"
+    restart: on-failure
 
   zenko:
     image: zenko/cloudserver:latest

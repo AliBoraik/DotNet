@@ -35,6 +35,7 @@ const Chat = (props) => {
                         setChat(updatedChat);
                     });
                     connectUser();
+                    getHistory();
                 })
                 .catch(e => console.log('Connection failed: ', e));
         }
@@ -59,6 +60,17 @@ const Chat = (props) => {
                 console.log(e);
             }
         }
+    }
+    const getHistory = () => {
+        fetch(`http://localhost:7043/api/message/chats/history?chatId=${props.chat}`, {
+            method: 'GET'
+        })
+            .then((response) =>
+            {return response.json()}).then((data) =>
+        {
+            console.log(data)
+            setChat(data)
+        })
     }
 
     const sendMessage = async (messageData) => {

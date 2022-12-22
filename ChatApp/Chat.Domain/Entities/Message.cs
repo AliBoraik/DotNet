@@ -8,4 +8,5 @@ public class Message
     public string Username { get; set; } = null!;
     public string MessageData { get; set; } = null!;
     public MessageType MessageType { get; set; }
+    public Guid ChatId { get; set; }
 }

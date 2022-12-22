@@ -11,12 +11,12 @@ alter table "__EFMigrationsHistory"
 
 create table if not exists "Chats"
 (
-    "Id"           uuid                  not null
+    "Id"           uuid    not null
     constraint "PK_Chats"
     primary key,
-    "ClientId"     text                  not null,
+    "ClientId"     text    not null,
     "AdminId"      text,
-    "IsProcessing" boolean default false not null
+    "IsProcessing" boolean not null
 );
 
 alter table "Chats"
@@ -30,9 +30,10 @@ create table if not exists "Messages"
     "Username"    text    not null,
     "MessageData" text    not null,
     "MessageType" integer not null,
-    "ChatId"      uuid
+    "ChatId"      uuid    not null
     constraint "FK_Messages_Chats_ChatId"
     references "Chats"
+    on delete cascade
 );
 
 alter table "Messages"

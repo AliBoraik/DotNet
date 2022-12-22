@@ -8,18 +8,22 @@ namespace Chat.Api.Hubs
     public class MessageHub : Hub
     {
         private readonly IChatService _chat;
+        private readonly IMessageService _messages;
         private readonly IRabbitMqProducer _producer;
 
-        public MessageHub(IChatService chat, IRabbitMqProducer producer)
+        public MessageHub(IChatService chat, IRabbitMqProducer producer, IMessageService messages)
         {
             _chat = chat;
             _producer = producer;
+            _messages = messages;
         }
 
         public async Task SendMessage(Message message, string groupName)
         {
             Console.WriteLine($"!!!!!!!User {message.Username} send message {message.MessageData} to group {groupName}!!!!!!!");
             _producer.SendMessage<Message>(message, "ChatApp.Message");
+            message.ChatId = Guid.Parse(groupName);
+            await _messages.Create(message);
             await Clients.Group(groupName).SendAsync("Receive", message);
         }
 
