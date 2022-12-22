@@ -81,11 +81,13 @@ services:
     ports:
       - '6379:6379'
 
-#  admin-api:
-#    build: ./admin-dashboard-main/admin-api
-#    container_name: 'admin-api'
-#    ports:
-#      - '8080:8080'
+  admin-api:
+    build: ./admin-dashboard-main/admin-api
+    container_name: 'admin-api'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
   
   spotify-clone:
     build:
@@ -94,11 +96,13 @@ services:
     ports:
       - '5057:80'
  
-#  admin-ui:
-#    build: admin-dashboard-main/admin-ui
-#    container_name: 'admin-ui'
-#    ports:
-#      - '3000:3000'
+  admin-ui:
+    build: admin-dashboard-main/admin-ui
+    container_name: 'admin-ui'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - admin-api
   
   spotify-api:
     build:
