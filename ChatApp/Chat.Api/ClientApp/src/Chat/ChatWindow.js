@@ -7,12 +7,11 @@ const ChatWindow = (props) => {
     let chat = []
     props.chat.forEach(m => {
         console.log(m)
-        chat.push(
-            <Message
-                key={Date.now() * Math.random()}
-                user={m.username}
-                message={m.messageData}/>
-        )
+            chat.push(
+                <Message
+                    key={Date.now() * Math.random()}
+                    user={m.username}
+                    message={m.messageData}/>)
     })
     
     return(

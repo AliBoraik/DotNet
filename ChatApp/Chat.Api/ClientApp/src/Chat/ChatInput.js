@@ -32,7 +32,7 @@ const ChatInput = (props) => {
                 value={messageData}
                 onChange={onMessageDataUpdate} />
             <br/>
-            <button>Submit</button>
+            <button>Send</button>
         </form>
     )
 };

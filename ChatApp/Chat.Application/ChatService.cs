@@ -52,4 +52,18 @@ public class ChatService : IChatService
         chat.IsProcessing = false;
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<Domain.Entities.Chat>> GetAll()
+    {
+        var chats = await _context.Chats.AsNoTracking().ToListAsync();
+
+        return chats;
+    }
+
+    public async Task<List<Domain.Entities.Chat>> GetFree()
+    {
+        var chats = await _context.Chats.AsNoTracking().Where(ch => !ch.IsProcessing).ToListAsync();
+
+        return chats;
+    }
 }

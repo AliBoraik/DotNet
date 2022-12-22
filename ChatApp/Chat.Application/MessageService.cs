@@ -19,6 +19,15 @@ public class MessageService : IMessageService
         return await _db.Messages.ToListAsync();
     }
 
+    public async Task<List<Message>> GetFromChat(Guid chatId)
+    {
+        var chat = await _db.Chats
+            .Include(ch => ch.Messages)
+            .FirstOrDefaultAsync(ch => ch.Id == chatId);
+
+        return chat.Messages.ToList();
+    }
+
     public async Task Create(Message item)
     {
         await _db.Messages.AddAsync(item);

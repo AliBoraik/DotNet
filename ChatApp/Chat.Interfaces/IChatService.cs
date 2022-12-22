@@ -6,4 +6,6 @@ public interface IChatService
     Task<Guid> AddChat(Guid userId);
     Task<bool> JoinAdmin(Guid chatId, Guid adminId);
     Task RemoveAdmin(Guid chatId);
+    Task<List<Domain.Entities.Chat>> GetAll();
+    Task<List<Domain.Entities.Chat>> GetFree();
 }

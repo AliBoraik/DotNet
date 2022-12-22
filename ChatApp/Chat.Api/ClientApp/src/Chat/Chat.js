@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 
 import ChatWindow from './ChatWindow';
-import ChatConnection from './ChatConnection'
 import ChatInput from './ChatInput';
+
 
 const Chat = (props) => {
     const [ connection, setConnection ] = useState(null);
@@ -66,7 +66,7 @@ const Chat = (props) => {
         const chatMessage = {
             Username: props.id,
             MessageData: messageData,
-            MessageType: 1
+            MessageType: 0
         };
         
         try {
@@ -75,13 +75,6 @@ const Chat = (props) => {
         catch(e) {
             console.log(e);
         }
-        
-        /*if (connection.connectionStarted) {
-            
-        }
-        else {
-            alert('No connection to server yet.');
-        }*/
     }
 
     return (
