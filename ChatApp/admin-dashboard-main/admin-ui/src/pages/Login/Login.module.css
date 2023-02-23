@@ -1,0 +1,30 @@
+* {
+    text-align: revert;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15em;
+}
+
+img {
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+}
+
+.formInput {
+    width:300px;
+}
+
+.login-btn {
+    margin-top: 15px;
+}
+
+.spinner {
+    margin-left: 128px;
+    margin-top: 7px;
+}

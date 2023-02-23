@@ -1,0 +1,10 @@
+.addplaylist{
+    color: grey;
+    padding: 8px;
+    font-size: small;
+    text-decoration: none;
+    border: solid 1px;
+    border-radius: 5px;
+    border-color: lightgrey;
+    white-space: nowrap;
+}

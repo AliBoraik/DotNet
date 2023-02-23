@@ -51,12 +51,12 @@ public class RabbitMqProducer : Microsoft.Extensions.Hosting.BackgroundService
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<DataUploadedMessage>(body);
                 
-                _cacheService.ChangeDatabase(Database.Meta);
+                //_cacheService.ChangeDatabase(Database.Meta);
                 var metaJson = _cacheService.GetData(message.RequestId.ToString());
                 var meta = JsonSerializer.Deserialize<MongoFile>(metaJson);
                 await _mongoDb.CreateAsync(meta);
                 
-                _cacheService.ChangeDatabase(Database.File);
+                //_cacheService.ChangeDatabase(Database.File);
                 var file = _cacheService.GetData(message.RequestId.ToString());
                 //todo: move to persist bucket
             }

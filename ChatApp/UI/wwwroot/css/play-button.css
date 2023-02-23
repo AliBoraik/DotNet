@@ -1,0 +1,42 @@
+﻿/* buttons on profile */
+.play-button {
+    margin-top: 20px;
+    margin-left: 25px;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    background: #1DB954;
+    color: black;
+    text-align: center;
+    z-index: 10000;
+}
+
+.play-button:before {
+    content: "▶";
+    font-size: 31px;
+    position: relative;
+    top: 3px;
+    left: 2px;
+}
+
+.play-button.active:before {
+    display: block;
+    content: "=";
+    font-size: 43px;
+    position: relative;
+    top: -6px;
+    left: -1px;
+    font-weight: bold;
+    transform: rotate(90deg);
+}
+
+.play-button:hover {
+    transform: scale(1.02);
+    cursor: default;
+    background-color: #31BC62;
+}
+
+.button-card {
+    width: 30px;
+    height: 30px;
+}

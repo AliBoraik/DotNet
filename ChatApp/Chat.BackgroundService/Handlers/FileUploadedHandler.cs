@@ -17,7 +17,7 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     private readonly Producer _producer;
     private readonly string _queueName;
 
-    public FileUploadedHandler(IMessageService messageService, ICacheService cacheService, Producer producer)
+    public FileUploadedHandler(ICacheService cacheService, Producer producer)
     {
         _cacheService = cacheService;
         _producer = producer;
@@ -47,12 +47,14 @@ public class FileUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
         var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += async (model, ea) =>
         {
+            Console.WriteLine("!!!!!!!!!GET INTO HANDLER!!!!!!!!!!!");
             try
             {
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<FileUploadMessage>(body);
-
-                _cacheService.IncrementAsync(message.RequestId.ToString());
+                
+                Console.WriteLine("!!!!!!!!!SHOULD INCREMENT!!!!!!!!!!!");
+                _cacheService.Increment(message.RequestId.ToString());
                 var counter = _cacheService.GetData(message.RequestId.ToString());
                 
                 

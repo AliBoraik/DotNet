@@ -1,0 +1,107 @@
+﻿@model string
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true"/>
+    <title>Sign up - Spotify</title>
+</head>
+<div class="form-container">
+    <img class="form-logo" src="~/img/full-logo.svg"/>
+    <h1 class="display-7 signup-text-heading">
+        Sign up for free to start listening.
+    </h1>
+    <div class="facebook-form-button">
+        <img class="facebook-form-logo" src="~/img/facebook-logo.svg">
+        <div class="facebook-form-text">Sign up with Facebook</div>
+    </div>
+    <br>
+    <div class="google-form-button">
+        <img class="google-form-logo" src="~/img/google-logo.svg"/>
+        <div class="google-form-text">Sign up with Google</div>
+    </div>
+    <div class="line-wrapper">
+        <div class="line">
+            <span>or</span>
+        </div>
+    </div>
+    <h2 class="signup-text signup-text-under">
+        Sign up with your email address
+    </h2>
+    <div>
+        @Model
+    </div>
+    <div class="form">
+        <form asp-controller="Account" asp-action="SignUp" method="post">
+            <div class="form-field">
+                <label for="email">What's your email?</label><br/>
+                <input type="email" name="email" placeholder="Enter your email." required="You need to enter your email."/>
+            </div>
+            <div class="form-field">
+                <label for="email-confirm">Confirm your email</label><br/>
+                <input type="email" name="email-confirm" placeholder="Enter your email again." required="You need to confirm your email."/>
+            </div>
+            <div class="form-field">
+                <label for="password">Create a password</label><br/>
+                <input type="password" name="password" placeholder="Create a password." required="You need to enter a password."/>
+            </div>
+            <div class="form-field">
+                <label for="name">What should we call you?</label><br/>
+                <input type="text" name="name" placeholder="Enter a profile name." required="Enter a name for your profile."/>
+            </div>
+            <div class="signup-mention">
+                <span>This appears on your profile.</span>
+            </div>
+            <div class="form-field">
+                <label for="birthday">What's your date of birth?</label><br/>
+                <div class="signup-date">
+                    <input id="day" name="day" pattern="([0-2]\d|3[0-1])" maxlength="2" type="number" placeholder="DD" required="Enter a valid day."/>
+                    <select id="month" name="month" required="Enter a valid month.">
+                        <option value="" selected disabled hidden>Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <input id="year" name="year" pattern="(1\d{3}|2\d{3})" type="number" placeholder="YYYY" required="Enter a valid year."/>
+                </div>
+            </div>
+            <div class="form-field">
+                <label>What's your gender?</label><br/>
+                <div class="form-radio">
+                    <input type="radio" name="gender" value="male"/>
+                    <label>Male</label>
+                    <input type="radio" name="gender" value="female"/>
+                    <label>Female</label>
+                </div>
+            </div>
+            <div class="form-agreement signup-agreement">
+                <input type="checkbox"/>
+                <span>Share my registration data with Spotify's content providers for<br/> 
+                    <span class="simple-text">marketing purposes.</span></span><br/>
+            </div>
+            <div class="form-agreement signup-agreement">
+                <input name="agreement" type="checkbox"/>
+                <span>
+                    I agree to the 
+                    <a href="#">Spotify Terms and Conditions of Use</a>
+                    and
+                    <a href="#">Privacy Policy</a>.
+                </span><br/>
+            </div>
+            <button type="submit" class="form-button signup-button">Sign up</button>
+            <p class="signup-suggestion">Have an account? <a href="/Account/Login">Log in</a>.</p><br/>
+        </form>
+    </div>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>

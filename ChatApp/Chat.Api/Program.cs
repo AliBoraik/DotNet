@@ -13,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddSignalR();
-builder.Services.AddSingleton<MessageHub>();
 builder.Services.AddScoped<IRabbitMqProducer, RabbitMqProducer>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -25,7 +24,7 @@ builder.Services.AddCors(options =>
     {
         policy.AllowAnyHeader()
             .AllowAnyMethod()
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:2000")
             .AllowCredentials();
     });
 });
@@ -47,7 +46,7 @@ app.UseCors("ClientPermission");
 
 app.UseAuthorization();
 
-app.MapHub<MessageHub>("/message");
+app.MapHub<MessageHub>("/chat");
 app.MapControllers();
 var services = app.Services.CreateScope().ServiceProvider;
 //services.GetRequiredService<MessageDataContext>().Database.Migrate();

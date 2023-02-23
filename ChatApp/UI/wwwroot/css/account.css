@@ -1,0 +1,391 @@
+﻿body{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    background: linear-gradient(rgb(33, 44, 57), rgb(18, 30, 61) 50%, rgb(0, 0, 0));
+    /*background: linear-gradient(#212c39, #121e3d);*/
+    overflow-x: hidden;
+    /*чтобы футер не убегал*/
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin:0;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+    background: rgb(0, 0, 0);
+    box-shadow: -1em 0 4em rgba(13, 215, 7, 0.8);
+}
+body::-webkit-scrollbar-track {
+    border-radius: 10%;
+
+}
+body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.8);
+    outline: 3px solid rgb(25, 171, 25);
+    border-radius: 10% 0 0 10%;
+}
+
+footer {
+    background-color: rgba(2, 3, 7, 0.83);
+    /*height:50px;*/
+    margin-top:auto;
+}
+
+.page{
+    display: grid;
+    height: 100%;
+    grid-template-areas: "A B"
+                         "C C";
+    grid-template-columns: 240px auto;
+    grid-template-rows: 100%;
+}
+
+.sidebar{
+    background-color: #000;
+    grid-area: A;
+}
+
+a.navbar-link{
+    color: white;
+    text-decoration: none;
+}
+
+a.navbar-link:hover{
+    color: #1fcf5d;
+}
+
+a.dropdown-link{
+    color: black;
+    text-decoration: none;
+}
+
+li.navbar-divider{
+    border-left: 2px solid white
+}
+
+a.dropdown-link:hover{
+    color: #1fcf5d;
+}
+
+.sidebar-list{
+    height: 100%;  
+    background-color: #1a1a1a
+}
+
+.sidebar-item{
+    display: block;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    border-top: 1px solid hsla(0,0%,100%,.05);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+a.sidebar-link{
+    border-left: 5px solid #1a1a1a;
+    color: #6c757d;
+    text-decoration: none;
+    display:block;
+    padding:.5rem 1rem;
+}
+
+a.sidebar-link:hover{
+    border-left: 5px solid #1ed760;
+    color: white;
+    text-decoration: none;
+    display:block;
+    padding:.5rem 1rem;
+}
+
+a.sidebar-link:active{
+    border-left: 5px solid #1ed760;
+    color: white;
+    text-decoration: none;
+    display:block;
+    padding:.5rem 1rem;
+}
+
+a.footer-link{
+    color: white;
+    text-decoration: none;
+}
+
+a.footer-link:hover{
+    color: #1fcf5d;
+    text-decoration: none;
+}
+
+a.media-link{
+    color: white;
+    text-decoration: none;
+}
+
+a.media-link:hover{
+    color: #1fcf5d;
+    text-decoration: none;
+}
+
+.first-icon{
+    margin-left: 35%
+}
+
+.icon{
+    border-radius: 100%;
+    border: 2px solid #1a1a1a;
+    background-color: #1a1a1a;
+    fill: white;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+
+.icon:hover{
+    border-radius: 100%;
+    border: 2px solid #1a1a1a;
+    background-color: #1a1a1a;
+    fill: #1fcf5d;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+
+.plan-card{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.accounts-count{
+    display: inline-block;
+    background: #0d6efd;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    font-weight: bold;
+}
+
+.plan-card-bg{
+    /*background: linear-gradient(-180deg, rgb(182, 43, 190) 0%, rgb(150, 34, 185) 100%);*/
+}
+.second-plan-card-bg{
+    background: linear-gradient(-180deg, rgb(43, 117, 190) 0%, rgb(28, 78, 128) 100%);
+}
+
+.another-plan-card-bg{
+    background: linear-gradient(-180deg, rgb(31, 207, 93) 0%, rgb(21, 140, 63) 100%);
+}
+
+.border-dark-btn{
+    border-radius: 500px; padding: 10px 20px;
+}
+
+
+.plan-page{
+    display: grid;
+    height: 100%;
+    grid-template-areas: "A A A"    
+                         "B C D"
+                         "E E E"
+                         "F G H";
+    grid-template-columns: 2% 90% 2%;
+    
+}
+
+.your-plan-header{
+    position: relative;
+    grid-area: A;
+}
+
+.your-plan-card{
+    position: relative;
+    grid-area: C;
+}
+
+.available-plan-header{
+    position: relative;
+    grid-area: E;
+}
+
+.slider-prev-arrow-block{
+    position: relative;
+    grid-area: F;
+}
+
+.slider-prev-arrow-block a {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%)
+}
+
+.available-plan-slider{
+    position: relative;
+    grid-area: G;
+}
+
+.slider-next-arrow-block{
+    position: relative;
+    grid-area: H;
+}
+
+.slider-next-arrow-block a {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%)
+}
+
+.page-without-sidebar{
+    display: grid;
+    height: 100%;
+    grid-template-areas: "A A"
+                         "C C";
+    grid-template-columns: 240px auto;
+}
+
+.main-page{
+    grid-area: A;
+    height: 100%;
+}
+
+a.about-link{
+    color: #1fcf5d;
+}
+
+
+/*styles for change-password*/
+/*                          */
+.form-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.form-logo {
+    width: 160px;
+    height: 100px;
+    margin: 14px;
+}
+
+.form {
+    display: block;
+}
+
+.form-row-3 {
+    display: inline-flex;
+    margin-top: 3%;
+    align-items: center;
+    width: 50%;
+}
+
+.form-row-3 input {
+    margin-left: 1%;
+    margin-right: 3%;
+}
+.form-row-3 label{
+    margin-right: 2px;
+    align-items: center;
+}
+
+.form-field input, select {
+    width: 70%;
+    height: 50px;
+    padding: 14px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 17px;
+    max-height: fit-content;
+}
+
+.form-field input:focus, select:focus {
+    border: 3px solid gray;
+}
+
+.form-field select:hover, input:hover {
+    border-color: black;
+}
+
+.form-field input::placeholder {
+    font-size: 18px;
+}
+
+.form-field label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 25px;
+    margin-bottom: 8px;
+}
+
+.form a {
+    color: #1fcf5d;
+}
+
+.form a:hover {
+    color: #20e666;
+}
+
+.form-button {
+    background-color: #1fcf5d;
+    border-radius: 25px;
+    border: 0;
+    font-size: 15px;
+    font-weight: bold;
+    width: fit-content;
+    height: 48px;
+    padding: 10px 30px 10px 30px;
+    margin-right: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.form-button:hover {
+    transition-duration: 0.1s;
+    background-color: #20e364;
+    transform: scale(1.05);
+}
+
+.login-button {
+    margin-top: 3%;
+    position: relative;
+    align-self: center;
+}
+
+.login-button:hover {
+    cursor: context-menu;
+}
+
+.cancel-form-button {
+    display: revert;
+    border-radius: 25px;
+    border: 0;
+    font-size: 15px;
+    font-weight: lighter;
+    width: fit-content;
+    height: 48px;
+    justify-content: center;
+    /*padding: 10px 30px 10px 30px;*/
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 1%;
+    color: #030303;
+    letter-spacing: 5px;
+}
+
+.cancel-form-button:hover {
+    transition-duration: 0.3s;
+    cursor: default;
+    background-color: rgba(211, 202, 20, 0.8);
+    transform: scale(1.05);
+}
+
+
+.form button{
+    align-self: center;
+}
+
+.form form{
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,30 @@
+﻿<link rel="stylesheet" href="~/css/play-button.css" asp-append-version="true"/>
+<div class="content-spacing">
+    <div class="artist-header">
+        <div>&nbsp;</div>
+        <div class="artist-info">
+            <div class="verified-icon"><span>Verified Artist</span></div>
+            <div class="artist-name" id="artist-name"></div>
+        </div>
+    </div> 
+    <div class="artist-body">
+        <div class="artist-interaction">
+            <div class="play-button active"></div> 
+            <div class="follow-button">FOLLOW</div>
+        </div>
+        <div class="artist-releases">
+            <div class="content-header">
+                <div class="content-type"><b>Albums</b></div>
+            </div>
+            <div class="content-body" id="albums">
+            </div>
+            <div class="content-header">
+                <div class="content-type"><b>Singles and EPs</b></div>
+            </div>
+            <div class="content-body" id="singles-and-eps"></div>
+        </div>
+    </div>
+</div>
+<script src="~/js/play-button.js"></script>
+<script src="~/js/artist/get-playlists.js"></script>
+<script src="~/js/artist/page/artist-profile.js"></script>

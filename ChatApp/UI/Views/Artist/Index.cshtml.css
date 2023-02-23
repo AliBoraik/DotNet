@@ -1,0 +1,117 @@
+﻿.content-spacing {
+    color: white;
+    overflow-y: hidden;
+}
+
+
+.artist-header {
+    height: 320px;
+    background-image: url("./img/TESTS-ARTIST-BACKGROUND.jpg");
+    min-height: 50px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: 1700px;
+}
+
+.artist-info {
+    margin-top: 140px;
+    margin-left: 30px;
+}
+
+.verified-icon {
+    position: relative;
+    top: 10px
+}
+
+.verified-icon span {
+    font-weight: 400;
+    font-size: 15px;
+    position: relative;
+    top: -2px
+}
+
+.play-button{
+    z-index: 0;
+}
+
+.verified-icon:before {
+    display: inline-block;
+    content: "";
+    background-image: url("./img/verified-icon.png");
+    background-size: 23px 23px;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 24px;
+}
+
+.artist-name {
+    font-weight: bolder;
+    font-size: 80px;
+    letter-spacing: -4px;
+    white-space: nowrap;
+}
+
+.artist-name:hover {
+    cursor: default;
+}
+
+.artist-interaction {
+    display: inline-flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.follow-button {
+    position: relative;
+    top: 33px;
+    width: 80px;
+    height: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding-left: 12px;
+    padding-top: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: default;
+}
+
+.follow-button:hover {
+    border-color: white;
+}
+
+.content-header {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 1600px;
+}
+
+.content-header a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.content-type {
+    color: white;
+    font-size: 25px;
+}
+
+.see-discography {
+    color: gray;
+    font-size: 12px;
+}
+
+.content-body {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-left: 28px;
+    margin-top: 10px;
+}

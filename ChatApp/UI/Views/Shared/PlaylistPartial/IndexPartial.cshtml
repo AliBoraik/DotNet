@@ -1,0 +1,54 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/playlist.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/play-button.css" asp-append-version="true"/>
+</head>
+<div class="content">
+    <div class="playlist-header">
+        <div class="playlist-img loading">
+            <img width="200" height="200" src="~/img/TESTS-ARTIST-ALBUM.jpg"/>
+        </div>
+        <div class="playlist-info loading">
+            <div class="playlist-type">Liked songs</div>
+            <div class="playlist-name">Your favourite</div>
+            <div class="playlist-data">
+                <a href="#" class="playlist-creator">USERNICKNAME</a>
+                <span id="tracks-amount">
+                    &bull; infinite tracks
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="playlist-body">
+        <div class="playlist-interaction">
+            <div class="play-button"></div>
+        </div>
+        <div class="songs mt-4">
+            <div class="songs-headlines ms-4 me-4">
+                <div class="headline-number">
+                    #
+                </div>
+                <div class="headline-name">
+                    NAME
+                </div>
+                <div class="headline-album">
+                    ALBUM
+                </div>
+                <div class="headline-time">
+                    <svg width="16" height="16" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z"/>
+                        <path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="ms-4 me-4">
+                <hr/>
+            </div>
+            <div class="song-cards ms-4  me-4" id="songs">
+                
+            </div>
+        </div>  
+    </div>
+</div>
+<script src="~/js/play-button.js"></script>
+<script src="~/js/getUserProfile.js"></script>
+<script src="~/js/playlist/show-playlist-info.js"></script>

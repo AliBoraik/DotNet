@@ -1,0 +1,44 @@
+h1.titleAdd {
+    margin-top: 5px;
+    margin-left: 270px;
+    font-weight: lighter;
+    position: relative;
+    top: 28px;
+}
+
+.formAdd {
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+button.info {
+    padding: 15px;
+    width: 100px;
+    background-color: #e0e0e0;
+    border: none;
+}
+
+button.back {
+    position: relative;
+    left: 255px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+button.update {
+    position: relative;
+    left: 255px;
+    margin: 15px 15px;
+}
+
+
+button.info:hover {
+    background-color: #bdbdbd;
+}
+
+.spinner {
+    margin-left: 270px;
+    width: 80px;
+    margin-top: 20px;
+    margin-bottom: 16px;
+}

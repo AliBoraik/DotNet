@@ -85,4 +85,9 @@ public class StorageService : IStorageService
         
         await _amazonS3.PutBucketAsync(bucketRequest);
     }
+    
+    public async Task<ListBucketsResponse> GetAllBuckets()
+    {
+        return await _amazonS3.ListBucketsAsync();
+    }
 }

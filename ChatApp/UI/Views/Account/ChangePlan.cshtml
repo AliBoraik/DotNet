@@ -1,0 +1,24 @@
+﻿@model int
+
+@{
+    Layout = "_AccountLayout";
+}
+<div class="mt-5 ms-5 me-5">
+    <h1>
+        <b>Do you want to change the plan to:</b>
+    </h1>
+    <div class="mt-5 mb-5" id="new-plan"></div>
+    <div>
+        <div id="change" class="btn btn-outline-dark border-dark-btn mb-5">
+            <b>Change</b>
+        </div>
+        <br/>
+        <a href="/Account/Plans" class="btn btn-outline-dark border-dark-btn mb-5">
+            <b>Back</b>
+        </a>
+    </div>
+</div>
+<script type="module" src="~/js/account/pages/change-plan.js"></script>
+<script src="~/js/cards/plan-card.js"></script>
+
+

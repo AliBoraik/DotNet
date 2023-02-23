@@ -1,0 +1,82 @@
+h1.form {
+    margin-left: 100px;
+}
+
+.form {
+    margin-top: 60px;
+}
+
+h1.title {
+    margin-left: 270px;
+    font-weight: lighter;
+    position: relative;
+    top: 60px;
+}
+
+button.info {
+    padding: 15px;
+    width: 100px;
+    background-color: #e0e0e0;
+    border: none;
+}
+
+button.add {
+    position: relative;
+
+}
+
+button.info:hover {
+    background-color: #bdbdbd;
+}
+
+.tracks {
+    margin-left: 270px;
+    display: block;
+}
+
+.tracks h1 {
+    font-weight: lighter;
+}
+
+button.update {
+    position: relative;
+    left: 255px;
+    margin: 15px 15px;
+}
+
+button.addNew {
+    position: relative;
+    left: 255px;
+    margin: 15px 15px;
+}
+
+div.playlistSongsHeader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.spinner {
+    margin-left: 270px;
+    width: 80px;
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
+
+
+.cover {
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 270px;
+    width: 150px;
+    height: 100%;
+    font-weight: lighter;
+}
+.playlistSongsList {
+    position: relative;
+    top: -20px;
+    left: -260px;
+    padding-bottom: 5px;
+
+}

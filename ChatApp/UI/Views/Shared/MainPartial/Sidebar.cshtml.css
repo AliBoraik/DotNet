@@ -1,0 +1,39 @@
+/*sidebar*/
+.sidebar{
+    background-color: #000;
+    grid-area: A;
+    padding: 24px;
+
+}
+
+.link{
+    text-decoration: none;
+    color: #afafaf;
+    transition-property: color;
+    transition-duration: .2s;
+    transition-timing-function: linear;
+}
+
+.link-active{
+    color: white;
+}
+
+.link:hover{
+    color: white;
+}
+
+.link span{
+    padding: 10px;
+}
+
+.sidebar_item{
+    padding: 8px 2px;
+    list-style-type: none;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.sidebar_label{
+    color: white;
+    text-align: center;
+}

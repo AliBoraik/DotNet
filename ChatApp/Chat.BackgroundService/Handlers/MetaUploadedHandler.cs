@@ -17,7 +17,7 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
     private readonly Producer _producer;
     private readonly string _queueName;
 
-    public MetaUploadedHandler(IMessageService messageService, ICacheService cacheService, Producer producer)
+    public MetaUploadedHandler(ICacheService cacheService, Producer producer)
     {
         _cacheService = cacheService;
         _producer = producer;
@@ -52,7 +52,7 @@ public class MetaUploadedHandler : Microsoft.Extensions.Hosting.BackgroundServic
                 var body = ea.Body.ToArray();
                 var message = JsonSerializer.Deserialize<MetaUploadMessage>(body);
                 
-                _cacheService.IncrementAsync(message.RequestId.ToString());
+                _cacheService.Increment(message.RequestId.ToString());
                 var counter = _cacheService.GetData(message.RequestId.ToString());
                 
                 if (counter == "2")

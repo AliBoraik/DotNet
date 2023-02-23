@@ -1,0 +1,9 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Account overview";
+}
+@{
+    Layout = "_AccountLayout";
+}
+
+@{ await Html.RenderPartialAsync("AccountPartial/OverviewPartial");}

@@ -1,0 +1,138 @@
+﻿.songs-headlines{
+    display: flex;
+    color: grey;
+    font-weight: bold;
+    font-size: 12px;
+    white-space: nowrap;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.headline-number{
+    flex: 1;
+}
+
+.headline-name{
+    flex: 8;
+}
+.headline-album{
+    flex: 5;
+}
+
+.headline-time{
+    flex: 2;
+}
+
+.song-card{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px ;
+    color: grey;
+    font-weight: bold;
+}
+
+.song-card:hover{
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 5px ;
+    color: white;
+}
+
+.song-card a{
+    color: grey;
+    text-decoration: none;
+}
+
+.song-card:hover a{
+    color: white;
+}
+
+.song-number{
+    flex: 1;
+    display: block;
+    position: relative;
+    cursor: pointer;
+
+}
+
+.song-info{
+    flex: 8;
+}
+.song-album{
+    flex: 5;
+}
+
+.song-time{
+    flex: 2;
+}
+
+.song-album a{
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.song-album a:hover{
+    font-size: 0.875rem;
+    text-decoration: underline;
+}
+
+.song-name{
+    color: white;
+    font-size: 0.9rem;
+}
+
+a.song-artist{
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+a.song-artist:hover{
+    font-size: 0.875rem;
+    line-height: 1rem;
+    text-transform: none;
+    letter-spacing: normal;
+    text-decoration: underline;
+}
+
+.play-btn{
+    display: none;
+}
+
+.song-card:hover div.number{
+    display: none;
+}
+
+.song-card:hover div.play-btn{
+    display: block;
+    color: white;
+}
+
+.like-btn{
+    display: none;
+}
+
+button.like-btn{
+    border: none;
+    background: transparent;
+}
+
+.three-dots-menu{
+    display:none;
+}
+
+button.three-dots-menu{
+    border: none;
+    background: transparent;
+}
+
+.song-card:hover button.like-btn{
+    display: inline-block;
+    color: white;
+}
+.song-card:hover button.three-dots-menu{
+    display: inline-block;
+    color: white;
+}

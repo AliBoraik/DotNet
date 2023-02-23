@@ -1,0 +1,62 @@
+﻿<div class="music-player">
+    <div class="song-bar">
+        <div class="song-infos">
+            <div class="image-container">
+                <img alt="cover" class="cover" src="~/img/cover.jpg" height="60"/>
+            </div>
+            <div class="song-description">
+                <p class="title">
+                    <a href="#" class="marquee">Tokyo Drift - 8d Bassboosted Edition</a>
+                </p>
+                <a href="#" class="artist">Deedashev</a>
+            </div>
+        </div>
+        <div class="icons">
+            <button class="like">
+                <i class="bi bi-heart" id="like"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="progress-controller">
+        <div class="control-buttons">
+            <button class="shuffle">
+                <i class="bi bi-shuffle"></i>
+            </button>
+            <button class="step-back">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="play">
+                <i class="play-pause fas fa-play" id="play-pause"></i>
+            </button>
+            <button class="step_forward">
+                <i class="fas fa-step-forward"></i>
+            </button>
+            <button class="repeat">
+                <i class="bi-arrow-repeat">
+                    <i id="repeat-song"></i>
+                </i>
+            </button>
+        </div>
+        <div class="progress-container">
+            <span id="current">0:00</span>
+            <div class="progress-bar player-track">
+                <div class="progress player-set"></div>
+            </div>
+            <span id="duration">0:00</span>
+        </div>
+    </div>
+    <div class="other-features">
+        <button class="bar-playlist-btn">
+            <i class="bi bi-list-ul"></i>
+        </button>
+        <div class="volume-container">
+            <button class="volume">
+                <i class="bi bi-volume-down-fill"></i>
+            </button>
+            <div class="progress-bar volume-track">
+                <div class="progress volume-set"></div>
+            </div>
+        </div>
+    </div>
+</div>
