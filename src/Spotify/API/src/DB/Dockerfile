@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /source
-COPY ["db_web_api-main/src/DB/DB.csproj", "DB/"]
+COPY ["DB.csproj", "DB/"]
 COPY . .
-RUN dotnet restore "db_web_api-main/src/DB/DB.csproj" --disable-parallel
-RUN dotnet publish "db_web_api-main/src/DB/DB.csproj" -c releas -o /app --no-restore
+RUN dotnet restore "DB.csproj" --disable-parallel
+RUN dotnet publish "DB.csproj" -c releas -o /app --no-restore
 
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0

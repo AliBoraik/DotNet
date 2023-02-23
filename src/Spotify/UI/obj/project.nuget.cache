@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "8bZJjjphkuN5Ps9BYWDcYI+NxKY2ydQIfbEZjLaQo4HrzFSGabktL1Ex6KOn6XYkRv5HmP7bfhCNdyNQ1wd6vw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\magazin\\RiderProjects\\DotNet\\ChatApp\\UI\\UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\magazin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -3,14 +3,14 @@ version: '3.4'
 services:
   server:
     build: 
-      dockerfile:  dockerfile-api
+      context: 'ChatApp/server'
+      dockerfile:  'DockerfileApi'
     container_name:  'server'
     ports:
       - '7043:80'
     environment:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
       ASPNETCORE_ENVIRONMENT: Development
-      
     depends_on:
       - zenko
       - mongo
@@ -18,28 +18,31 @@ services:
     restart: on-failure   
       
   client:
-    build: ./Chat.Api/ClientApp
+    build:
+      context: 'ChatApp/client'
+      dockerfile: 'Dockerfile'
     container_name: 'client'
     ports:
       - '2000:2000'
 
   consumer:
     build: 
-      dockerfile:  dockerfile-background
+      context: 'ChatApp/server'
+      dockerfile:  'DockerfileBackground'
     container_name: 'consumer'
     environment:
       CONNECTION_STRING_DOCKER: "host=db;Database=messagedb;Port=5432;Username=postgres;Password=admin"
     ports:
-      - "8043:80"
-    restart: on-failure   
-
+      - "8043:80" 
     depends_on:
       - rabbitmq
-
+    restart: on-failure
+  
   db:
     build: 
-      dockerfile: ./DataBase/dockerfile-db
-    container_name: db
+      context: 'ChatApp/server/DataBase'
+      dockerfile: 'Dockerfile'
+    container_name: 'db'
     ports:
       - '5432:5433'
     environment:
@@ -85,7 +88,9 @@ services:
       - '6379:6379'
 
   admin-api:
-    build: ./admin-dashboard-main/admin-api
+    build: 
+      context: 'SpotifyAdmin/admin-api'
+      dockerfile: 'Dockerfile'
     container_name: 'admin-api'
     ports:
       - '8080:8080'
@@ -94,22 +99,26 @@ services:
   
   spotify-clone:
     build:
-      dockerfile: UI/dockerfile-spotify-clone
+      context: 'Spotify/UI'
+      dockerfile: 'Dockerfile'
     container_name: 'spotify-clone'
     ports:
       - '5057:80'
  
   admin-ui:
-    build: admin-dashboard-main/admin-ui
+    build: 
+      context: 'SpotifyAdmin/admin-ui'
+      dockerfile: 'Dockerfile'
     container_name: 'admin-ui'
     ports:
       - '3000:3000'
     depends_on:
       - admin-api
-  
+
   spotify-api:
     build:
-      dockerfile: db_web_api-main/src/DB/dockerfile-spotify-clone
+      context: 'Spotify/API/src/DB'
+      dockerfile: 'Dockerfile'
     container_name: 'spotify-api'
     ports:
       - '5030:80'   
